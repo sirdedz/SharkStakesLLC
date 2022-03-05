@@ -1,0 +1,31 @@
+<!-- page for completing a quiz -->
+<!DOCTYPE html>
+
+{% extends "base.html" %}
+
+{% block content %}
+    <h2 id="quiz-title">{{ quiz.title }}</h2>
+
+    <div id="questions">
+        {% for question in questions %}
+            <div class="question">
+                <p>{{question.question}}</p>
+                <input type="text">
+            </div>
+        {% endfor %}
+    </div>
+    <input type="button" onclick='prevQuestion()' value="Back" id="prevQuestionButton" class="hidden">
+    <input type="button" onclick='nextQuestion("{{ quiz.title }}")' value="Next Question" id="nextQuestionButton">
+    <div class="hidden" id="feedback-div">
+        <table>
+            <thead>
+                <th>Question</th>
+                <th>Your Answer</th>
+                <th>Correct Answer</th>
+            </thead>
+            <tbody id="feedback">
+            </tbody>
+        </table>
+        <a href={{ url_for('index') }}>Home</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,119 @@
+<!-- page for user registration -->
+<!DOCTYPE html>
+
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Register</h1>
+
+    
+    <p>
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li style="color: red; list-style-type: none;"> {{message}}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+
+    </p>
+
+    <form name="register" action="" method="post">
+        <div class="form">
+            {{form.hidden_tag()}}
+            <div class="input">
+                <p>
+                    {{ form.username.label }}{{ form.username(class="input") }}<br>
+                    {% for error in form.username.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+            </div>
+            <div class="input">
+                <p>
+                    {{ form.email.label }}{{ form.email(class="input") }}<br>
+                    {% for error in form.email.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+            </div>
+            <div class="input">
+                <p>
+                    {{ form.firstname.label }}{{ form.firstname(class="input") }}<br>
+                    {% for error in form.firstname.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+            </div>
+            <div class="input">
+                <p>
+                    {{ form.surname.label }}{{ form.surname(class="input") }}<br>
+                    {% for error in form.surname.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+            </div>
+            <div class="input">
+                <p>
+                    {{ form.dob.label }}{{ form.dob(class="input") }}<br>
+                    {% for error in form.dob.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+            </div>
+            <div class="input">
+                <p>
+                    {{ form.address.label }}{{ form.address(class="input") }}<br>
+                    {% for error in form.address.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+            </div>
+            <div class="input">
+                <p>
+                    {{ form.country.label }}{{ form.country(class="input") }}<br>
+                    {% for error in form.country.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+            </div>
+            <div class="input">
+                <p>
+                    {{ form.postcode.label }}{{ form.postcode(class="input") }}<br>
+                    {% for error in form.postcode.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+            </div>
+            <div class="input">
+                <p>
+                    {{ form.state.label }}{{ form.state(class="input") }}<br>
+                    {% for error in form.state.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+            </div>
+            <div class="input">
+                <p>
+                    {{ form.phone.label }}{{ form.phone(class="input") }}<br>
+                    {% for error in form.phone.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+            </div>
+            <div class="input">
+                <p>
+                    {{ form.password.label }}{{ form.password(class="input") }}<br>
+                    {% for error in form.password.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+            </div>
+            <p> {{ form.submit() }} </p>
+        </div>
+    </form>
+
+{% endblock %}

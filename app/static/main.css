@@ -1,0 +1,225 @@
+/*css to be used on all html files in the templates folder*/
+
+/*------css to be used globally throughout the website-------*/
+:root{
+    --header_height: 80px;
+    --grey1: rgba(0, 0, 0, 0.05);
+    --navy1: #26374D;
+    --navy1rgb: rgba(38, 55, 77, 1);
+    --green1: #146E1E;
+}
+
+html{
+    font-size: 20px;
+}
+
+body{
+    background-color: white;
+}
+
+.header{
+    background-color: white;
+    color: var(--navy1);
+    height: var(--header__height);
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto;
+}
+
+.header *{
+    height: var(--header_height);
+    display: flex;
+    flex-direction: row;
+    padding-left: 10px;
+    padding-right: 10px;
+    line-height: var(--header_height);
+    font-family: 'New Century Schoolbook', 'TeX Gyre Schola', 'serif';
+    text-decoration: none;
+    color: var(--navy1);
+}
+
+.header p:hover, a:hover{
+    color: var(--green1);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.header img:hover{
+    cursor: pointer;
+}
+
+.header-left{
+    justify-content: flex-start;
+}
+
+.header-left img{
+    padding-top: 20px;
+}
+
+.header-middle{
+    justify-content: center;
+}
+
+.header-right{
+    justify-content: flex-end;
+}
+
+.header-right i{
+    font-size: 1.5em;
+    text-align: center;
+    padding-right: 0;
+    padding-left: 0;
+    display: flex;
+    align-items: center;
+}
+
+.header-right i:hover{
+    cursor: pointer;
+    color: var(--green1);
+}
+
+.content{
+    background-color: var(--grey1);
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 0;
+    padding-bottom: 20px;
+    min-height: 1500px;
+    text-align: center;
+}
+
+.footer{
+    background-color: var(--navy1);
+    display: flex;
+    flex-direction: column;
+    color: white;
+    bottom: 0;
+    min-height: 150px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.footer *{
+    font-size: 0.5em;
+    height: 100%;
+}
+
+.hidden{
+    display: none;
+}
+
+/*------------------- INDEX.HTML --------------------*/
+
+#carousel{
+    background-color: black;
+}
+
+.carousel-inner{
+    height: 600px;
+}
+
+.carousel-item{
+    text-align: center;
+}
+
+.carousel-item img{
+    display: block;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.coming-soon{
+    padding-top: 1.5em;
+    width: 100%;
+    text-align: center;
+}
+
+.coming-soon h3{
+    font-size: 1.5em;
+}
+
+table{
+    border: 1px solid var(--grey1);
+    width: 85%;
+    text-align: center;
+    margin: 0 auto;
+}
+
+table thead{
+    background-color: var(--navy1);
+    color: white;
+}
+
+table td{
+    border-left: 1px solid var(--grey1);
+    border-right: 1px solid var(--grey1);
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+.coming-soon table td:last-child{
+    text-decoration: underline;
+}
+
+/*------------------- LOGIN.HTML --------------------*/
+
+.form {
+  text-align: center;
+}
+
+/*------------------- ABOUT.HTML --------------------*/
+
+.about-flex{
+    object-fit: cover;
+    background-color: blue;
+    flex-basis: auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    color: var(--navy1);
+    height: var(--header__height);
+    width: auto;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto;
+}
+
+.about-flex img{
+    display: block;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    height: 700px;
+  }
+
+/*------------------- QUIZ.HTML --------------------*/
+#questions{
+    max-width: 80%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.question{
+    padding: 20px;
+}
+
+.question-visible{
+    display: block;
+}
+
+.question-hidden{
+    display: none;
+}
+
+/*------------------- STATS.HTML --------------------*/
+
+.global-stats p{
+  line-height: 30px;
+  margin-top: 30px;
+  margin-bottom: 200px;
+
+}

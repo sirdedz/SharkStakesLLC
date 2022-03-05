@@ -1,0 +1,48 @@
+<!-- page for admins to create quiz questions and quizzes -->
+<!DOCTYPE html>
+
+{% extends "base.html" %}
+
+{% block content %}
+    <div>
+        <h2>Create a Quiz:</h2>
+
+        <p>
+
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul>
+                {% for message in messages %}
+                <li style="color: red; list-style-type: none;"> {{message}}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+        
+        </p>
+        
+        <form name="create_question" action="" method="post">
+            <div class="form">
+                {{form.hidden_tag()}}
+                <div class="input">
+                    <p>
+                        {{ form.title.label }}{{ form.title(class="input") }}<br>
+                        {% for error in form.title.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </p>
+                </div>
+                <div class="input">
+                    <p>
+                        {{ form.sport.label }}{{ form.sport(class="input") }}<br>
+                        {% for error in form.sport.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </p>
+                </div>
+                <p> {{ form.submit() }} </p>
+            </div>
+        </form>
+    
+    </div>
+{% endblock %}

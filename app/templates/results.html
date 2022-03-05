@@ -1,0 +1,40 @@
+<!-- page for user acc details and results/stats -->
+<!DOCTYPE html>
+
+{% extends "base.html" %}
+
+{% block content %}
+    <div id="results-table">
+        <h2>Results for {{ current_user.username }}</h2>
+        {% if not results %}
+            <p>You are yet to complete any quizzes</p>
+            <p><a href={{ url_for('index') }}>Complete quizzes here</a></p>
+        {% else %}
+        <div>
+            <canvas id="myChart" style="height: 200px;"></canvas>
+        </div>
+        <hr>
+        <div>
+            <h4>Results</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Quiz</th>
+                        <th>Score</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for result in results %}
+                        <tr>
+                            <td>{{result.quiz_title}}</td>
+                            <td class="results-score">{{result.score}}/{{result.questions_answered}}</td>
+                            <td class="results-time">{{result.date}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}

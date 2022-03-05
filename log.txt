@@ -1,0 +1,619 @@
+commit 6cd81ac170533a2c65ae6d017a38bbb5861781a7
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Mon May 17 17:31:32 2021 +0800
+
+    update readme
+
+commit 9b0b2046f11f18369fe6d1c14e5a16a05bc90d76
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Mon May 17 17:29:39 2021 +0800
+
+    fixed login bug
+
+commit 4ec007ce2c3f74f04d6775dd0b09237aa546c48e
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Mon May 17 17:13:31 2021 +0800
+
+    database test cases
+
+commit 39d3d906c8a329069cd898d6d7dd5344d570485f
+Merge: c84e88f 1d51c14
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Mon May 17 15:58:44 2021 +0800
+
+    Merge branch 'main' of https://github.com/sirdedz/sharkstakesllc into main
+
+commit c84e88fd5a1d964fcfd22e867fc022b0cafce3da
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Mon May 17 15:58:18 2021 +0800
+
+    bug fixes
+
+commit 1d51c143f0515b6f1aac8a14a4fc34187b4e149d
+Merge: 08707cf ee75943
+Author: airwedjiex1 <samkent292@gmail.com>
+Date:   Mon May 17 15:45:51 2021 +0800
+
+    Merge branch 'main' of https://github.com/sirdedz/SharkStakesLLC
+
+commit 08707cf8c34d3407102729e0b9ffa62d86e76dbc
+Author: airwedjiex1 <samkent292@gmail.com>
+Date:   Mon May 17 15:45:33 2021 +0800
+
+    comments done
+
+commit ee75943aebe36771d70c33b38619aa7426f8915b
+Merge: 2f65129 3dfc47a
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Mon May 17 15:36:47 2021 +0800
+
+    resolving merge
+
+commit 2f65129761d346fbc452da062d633ea16d140b05
+Merge: 1fab775 e3f55ff
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Mon May 17 15:33:52 2021 +0800
+
+    Global statistics bug fixes
+
+commit e3f55ffc7d2259a473a94a21a091fa0868759f60
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Mon May 17 15:33:10 2021 +0800
+
+    Global statistics bug fixes
+
+commit 3dfc47a974244220def306479f9b16b236a382da
+Merge: dfb39bc 1fab775
+Author: airwedjiex1 <samkent292@gmail.com>
+Date:   Mon May 17 15:29:58 2021 +0800
+
+    Merge branch 'main' of https://github.com/sirdedz/SharkStakesLLC
+
+commit dfb39bc3601c362e24c24cd894de90146c6cdb17
+Author: airwedjiex1 <samkent292@gmail.com>
+Date:   Mon May 17 15:29:40 2021 +0800
+
+    comments
+
+commit 2bb13b521f0b12c54946562e7a84a1a7f3ab532b
+Author: airwedjiex1 <samkent292@gmail.com>
+Date:   Mon May 17 15:23:12 2021 +0800
+
+    comments for .py files within /app
+
+commit 1fab775e54413a6e13923f3bc5f2ad56256020f9
+Merge: 2ce4a6a 1cfa789
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Mon May 17 14:47:15 2021 +0800
+
+    removed db from tracking
+
+commit 1cfa789bd862f35d7b548b8cb648907d1db8dc08
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Mon May 17 14:44:40 2021 +0800
+
+    removed db from git
+
+commit 2ce4a6a8ed975a2cbfd3bc6408ea8baf4fa63189
+Merge: 0c09289 0dd4f2a
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Mon May 17 14:40:29 2021 +0800
+
+    resolved merge
+
+commit 0c092895bc490df2d4d7e6ba3078fb8e0fc03290
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Mon May 17 14:39:08 2021 +0800
+
+    HTML validation
+
+commit 0dd4f2a3da75d7c0fbcac2c870b0bb5c2c182030
+Merge: f462877 81e084d
+Author: airwedjiex1 <samkent292@gmail.com>
+Date:   Mon May 17 14:23:44 2021 +0800
+
+    changes to about and stats pages
+
+commit f46287739d3e81073635fcb491b6e3b394b14d89
+Author: airwedjiex1 <samkent292@gmail.com>
+Date:   Mon May 17 14:19:49 2021 +0800
+
+    changes to about and stats pages
+
+commit 81e084dc61b1036d0c22d4644c9fed25aafc4656
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Mon May 17 14:17:23 2021 +0800
+
+    update readme
+
+commit 048c44ab87b3c7cfb2f251879de13f3303f57b04
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Mon May 17 14:15:09 2021 +0800
+
+    Referenced CDN's in README
+
+commit c13c5566b18e539dc82b32095dd6295b15c7deed
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Mon May 17 13:54:54 2021 +0800
+
+    updated readme
+
+commit 1d94c001cfa9930f2756d801e99dd96c66eb8e7b
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Mon May 17 13:51:16 2021 +0800
+
+    updated readme
+
+commit 7340aa06c55811fbf44f18c8058389f8c3841404
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Mon May 17 13:25:52 2021 +0800
+
+    Added database builder
+
+commit 39349b06461327c6b5142fa8a89f7d23615466d5
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Mon May 17 11:01:42 2021 +0800
+
+    Results syntax error fixed
+
+commit ed5646208d62be080487775de05b8d7a55b579c1
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Mon May 17 10:50:19 2021 +0800
+
+    Added instant feedback on quizzes
+
+commit e91fc60de9b4d9af75507072f8d5819d405849d8
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Mon May 17 09:48:00 2021 +0800
+
+    Added global statistics functionality:
+
+commit 7abafb90a8bc7e081bf0b62582325b423f327ffc
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Mon May 17 08:23:29 2021 +0800
+
+    Updated user registration
+
+commit 37d39c010f4244cf030eb6940ce74363fa3d75d6
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Mon May 17 02:28:56 2021 +0800
+
+    Added prototype line graph
+
+commit 22611c579a33a949d4be8a443eef8131925eb687
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Mon May 17 01:14:48 2021 +0800
+
+    Working results for quizzes
+
+commit 5b0744029010c9c19624acb7a4b99bd53dff8663
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Sun May 16 22:17:22 2021 +0800
+
+    Fixed quiz create and delete session issues
+
+commit 81ad32df04668cc91655c61fa3cde9d154a937c6
+Merge: 1afd77a 0b2ea22
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Sun May 16 21:15:49 2021 +0800
+
+    Merge fix
+
+commit 1afd77a67f7b94c9636d9782b6227273ed721ec4
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Sun May 16 21:09:00 2021 +0800
+
+    Quiz page update
+
+commit 0b2ea2298392d7968e95bf391363ac822fb9b56f
+Author: airwedjiex1 <samkent292@gmail.com>
+Date:   Sun May 16 20:51:11 2021 +0800
+
+    logo/name change
+
+commit 78412df7510666f705e3c16f6f0dacbeb503d265
+Merge: af40b4b 98a7978
+Author: airwedjiex1 <samkent292@gmail.com>
+Date:   Sun May 16 20:01:48 2021 +0800
+
+    Merge branch 'main' of https://github.com/sirdedz/SharkStakesLLC into sam
+
+commit af40b4bcc5985a518fb97f93b652895b87bc149c
+Author: airwedjiex1 <samkent292@gmail.com>
+Date:   Sun May 16 19:59:46 2021 +0800
+
+    About page
+
+commit 98a79787e5f0c60254bf555a876c3e2b18e142d3
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Sun May 16 19:44:09 2021 +0800
+
+    Added admin functionality for adding quizzes, questions and deleting quizzes
+
+commit e1baa4dab47e3f0ff7f1c32ce87e722a02a1cbac
+Merge: 0d57993 20a6eb9
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Sun May 16 18:03:37 2021 +0800
+
+    Merge branch 'main' of https://github.com/sirdedz/sharkstakesllc into main
+
+commit 0d579934b89416a6cfe5bd77f19615411d7ef485
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Sun May 16 18:03:13 2021 +0800
+
+    Login and register
+
+commit 20a6eb9b42939a66d2aa0045abc6559b8fa741ad
+Author: Darby Edwards <83024882+sirdedz@users.noreply.github.com>
+Date:   Sun May 16 17:38:55 2021 +0800
+
+    Update README.md
+
+commit 5c4b718c00d66bb4a22806f88ec326590ad60260
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Sun May 16 16:52:43 2021 +0800
+
+    Base header when logged in
+
+commit 446ccd2c01f8360aa050e64612f356b8484338bc
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Sun May 16 16:46:14 2021 +0800
+
+    Working login prototype
+
+commit 377d664ddd5a020ff74cad7c80e513d17bccb848
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Sun May 16 13:49:56 2021 +0800
+
+    login controllers
+
+commit c26264ec54cbfb73635ccb3e5e0cd7b2cdc09b4a
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Sun May 16 13:49:20 2021 +0800
+
+    login controllers
+
+commit 7cb37cf27fe50690d194812983d16bf1dcbbe9f7
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Sun May 16 00:36:25 2021 +0800
+
+    Route all pages
+
+commit 661b2b86c25c29fa6c90d74f6888c7f428815953
+Merge: d3b1b7b 4967194
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Fri May 14 14:30:24 2021 +0800
+
+    Merge branch 'main' of https://github.com/sirdedz/sharkstakesllc into dev
+
+commit d3b1b7ba2f3d00287f9d5ff8df0fadcd1dc7359f
+Merge: a03c829 f3e12a2
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Fri May 14 14:28:48 2021 +0800
+
+    Merge branch 'dev' of https://github.com/sirdedz/sharkstakesllc into dev
+
+commit a03c829b124a7c132dea2164c0af6cbab6d3655a
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Fri May 14 14:28:26 2021 +0800
+
+    Added wireframes
+
+commit 4967194e91047b928090cb927fa975390d53a365
+Author: Darby Edwards <83024882+sirdedz@users.noreply.github.com>
+Date:   Fri May 14 14:26:23 2021 +0800
+
+    Update README.md
+
+commit f580370b21acdd52b950493037d66228667a302b
+Author: airwedjiex1 <samkent292@gmail.com>
+Date:   Thu May 13 00:21:47 2021 +0800
+
+    added text file with some potential questions
+
+commit e77523702834ad364a0cbc94bc9bdb94efae054d
+Author: airwedjiex1 <samkent292@gmail.com>
+Date:   Wed May 12 23:07:39 2021 +0800
+
+    added images to about page
+
+commit 30bfa3dea5aaf5fd79c1f41367b1471db5657208
+Author: airwedjiex1 <samkent292@gmail.com>
+Date:   Tue May 11 17:38:24 2021 +0800
+
+    add about page and fixes
+
+commit d91d7b16af5f72028a61ce76d93661cf9e8ca1fa
+Author: airwedjiex1 <samkent292@gmail.com>
+Date:   Tue May 11 16:12:25 2021 +0800
+
+    changed header options (marking key)
+
+commit 98818fbf23e2952d6e20d7e7b4451f68b7e7bc8b
+Author: airwedjiex1 <samkent292@gmail.com>
+Date:   Tue May 11 15:28:33 2021 +0800
+
+    added user page to routes and linked to it
+
+commit 8049238d33ba52e85efc6cc9f1e5561e761f1b4e
+Author: airwedjiex1 <samkent292@gmail.com>
+Date:   Tue May 11 13:37:06 2021 +0800
+
+    added page for user info
+
+commit 5d14547be5c846bf1c67c4bc773050357228fdb6
+Author: airwedjiex1 <samkent292@gmail.com>
+Date:   Thu May 6 23:23:52 2021 +0800
+
+    centered login form (test)
+
+commit 3459090d0d6bacf0620968890dc1f342cabc4da0
+Author: Darby Edwards <83024882+sirdedz@users.noreply.github.com>
+Date:   Mon May 3 17:06:43 2021 +0800
+
+    Update README to include database instructions
+
+commit f3e12a2659a56da80f0a0112846298a9b601221e
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Mon May 3 17:01:35 2021 +0800
+
+    Minor routes changes
+
+commit 64ed5c6684f4875cc44958eb60c136fcff4213a7
+Merge: 2c4a080 e1a7a6d
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Mon May 3 16:51:38 2021 +0800
+
+    Merge branch 'dev' into main
+
+commit e1a7a6d8b7302ae4ac408b633ffde297dd1d0cea
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Mon May 3 16:51:17 2021 +0800
+
+    Fixed syntax error on index.html
+
+commit 2c4a08091e34ae2340ba6a65fbf93199dfe4f23b
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Mon May 3 16:47:12 2021 +0800
+
+    updated gitignore
+
+commit 626bbed5b6997d04ced85f7b9bbebef67bf06fbe
+Merge: a98d4b2 f8fcc1a
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Mon May 3 16:42:45 2021 +0800
+
+    Merge branch 'main' of https://github.com/sirdedz/sharkstakesllc into dev
+
+commit a98d4b2c8ef019d4b9b7b0e69fa515223d181ebd
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Mon May 3 16:41:57 2021 +0800
+
+    Database functionality added to index page
+
+commit 0e85ab9b6c046d546c1407bf8f7b08d53fca36a3
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Mon May 3 16:03:55 2021 +0800
+
+    Sqlalchemy structure
+
+commit 2c0a30481ec6ba15552b16695c176a0ef883d112
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Mon May 3 15:22:00 2021 +0800
+
+    First structure of sqlachemy database added
+
+commit f8fcc1a02017e773bb9899eac836c188db98c40b
+Author: Darby Edwards <83024882+sirdedz@users.noreply.github.com>
+Date:   Mon May 3 15:18:16 2021 +0800
+
+    Include database migrations in gitignore
+
+commit 8ee5ed7e44ea15b5d5a0568c534ecdddf67dacf9
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Fri Apr 30 16:37:59 2021 +0800
+
+    Update main.css
+
+commit 38407e263e3235aac61ef33bc9f287fdaeb77675
+Author: Darby Edwards <83024882+sirdedz@users.noreply.github.com>
+Date:   Thu Apr 29 16:26:24 2021 +0800
+
+    Update .gitignore
+
+commit c951b52712bde46d8515ed84957ad746c58f5d19
+Merge: 4ff18aa 65d3928
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Thu Apr 29 16:23:11 2021 +0800
+
+    Merge branch 'main' of https://github.com/sirdedz/sharkstakesllc into main
+
+commit 4ff18aaa6f7585da4506696c3e9cda8891195278
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Thu Apr 29 16:22:14 2021 +0800
+
+    removed logo files not in assets folder
+
+commit 612d37ab99199e733af07b29f87d12c9bc912bb6
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Thu Apr 29 16:20:05 2021 +0800
+
+    Added carousel and some sample images. Simple CSS styling on header.
+
+commit 65d392855b64b3fd3d27452d98068c1ada3614cf
+Author: Darby Edwards <83024882+sirdedz@users.noreply.github.com>
+Date:   Thu Apr 29 13:38:48 2021 +0800
+
+    Update README.md
+
+commit 5b1f88ff1a6b797ee042db04f4cef81034deb6de
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Wed Apr 28 22:18:01 2021 +0800
+
+    fixed readme
+
+commit dfec18d045d8334ee42be9573f02b43e1de2d895
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Wed Apr 28 22:15:47 2021 +0800
+
+    Added main css file
+
+commit fa5807db9b63859521798b5cff9cd9598fc45903
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Wed Apr 28 19:37:35 2021 +0800
+
+    Adding initial database.
+
+commit b6f19a5e8a851860374f3fbce53eea84108a91ff
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Wed Apr 28 17:45:40 2021 +0800
+
+    Add logo to base structure.
+
+commit 51c720ba12a603d956295cc37a6a7321ee29acd1
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Mon Apr 26 20:55:10 2021 +0800
+
+    Add first wireframes
+
+commit 8db2ac2a5f6a2a95d826c27c37eba1ba88bc5ac4
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Sun Apr 25 20:04:21 2021 +0800
+
+    Adding first image to webpage, restructuring Assets directory.
+
+commit 7f533818dfdf67aac218c601753f20808bb17020
+Merge: a05eaaf f536fe8
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Sun Apr 25 17:38:48 2021 +0800
+
+    Merge branch 'main' of https://github.com/sirdedz/sharkstakesllc
+
+commit a05eaaf3af0b9626fb457e7a2a908f109a6bb576
+Merge: 6f673fd 840f86b
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Sun Apr 25 17:37:58 2021 +0800
+
+    updating README.md
+
+commit 840f86ba711ce2f3ed5d643ba7e0b2088b7f1bb8
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Sun Apr 25 17:34:42 2021 +0800
+
+    Added Assets folder
+
+commit 6f673fd4372e03c1074a6bda45a7e9afe4f49cb8
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Sun Apr 25 17:29:13 2021 +0800
+
+    Adding Assets folder for logo and first 2 logos.
+
+commit f536fe8a9eff6ef4e9b3194c07ea82f0a5361519
+Author: Darby Edwards <83024882+sirdedz@users.noreply.github.com>
+Date:   Sun Apr 25 00:21:14 2021 +0800
+
+    Delete testerfor git.txt
+
+commit afaeacd34a9ec236ce10e7cda7ed27a90eeb8359
+Merge: 4425d8d 12a6f34
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Sun Apr 25 00:13:01 2021 +0800
+
+    Merge branch 'main' of https://github.com/sirdedz/sharkstakesllc
+
+commit 4425d8deb579968c2175a654df3ea31b097f2550
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Sun Apr 25 00:12:46 2021 +0800
+
+    Fixed README
+
+commit 12a6f346f94de53ca8f6486c6a09f7aeb1060f22
+Merge: a35b0ab 0c13a4f
+Author: airwedjiex1 <samkent292@gmail.com>
+Date:   Sun Apr 25 00:11:04 2021 +0800
+
+    Merge branch 'main' of https://github.com/sirdedz/SharkStakesLLC
+
+commit a35b0ab84cc122055dca9ba753c1dbdf938cc12d
+Author: airwedjiex1 <samkent292@gmail.com>
+Date:   Sun Apr 25 00:09:34 2021 +0800
+
+    changed init
+
+commit 0c13a4f8f0f28cbb31179e13639a5fc3a357f311
+Author: Darby Edwards <83024882+sirdedz@users.noreply.github.com>
+Date:   Sat Apr 24 22:48:51 2021 +0800
+
+    Delete sample.txt
+
+commit a08db60333ac8225c49b7092eef6ec412fd4e553
+Author: airwedjiex1 <samkent292@gmail.com>
+Date:   Sat Apr 24 22:36:58 2021 +0800
+
+    added tester
+
+commit 3e9b6bcf1e3774fbf37dd50181137960479b5a9c
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Sat Apr 24 22:32:31 2021 +0800
+
+    Added sample.txt
+
+commit 1bd8d0456bb394c0982d4c7b9dc875802c491a70
+Author: Darby Edwards <83024882+sirdedz@users.noreply.github.com>
+Date:   Sat Apr 24 21:05:35 2021 +0800
+
+    Update README.md
+
+commit 875ddab6ef0dc7c8d8199d03a63b98100a55dd72
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Sat Apr 24 21:04:29 2021 +0800
+
+    Implementing basic forms funciton
+
+commit 4bef9ff3bc45b336124b960cef203b10133d0f00
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Sat Apr 24 20:58:07 2021 +0800
+
+    Add basic structure for forms functionality
+
+commit 98ab6b157b08ef69eb857fc7d53084b137eea970
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Sat Apr 24 19:57:04 2021 +0800
+
+    Add login.html login template
+
+commit 6204cfe99e2693587d78af28398d27802c305bda
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Sat Apr 24 19:46:30 2021 +0800
+
+    Adding forms.py and templates/index.html for basic forms structure
+
+commit 7d5977bdab0cc9482ee36645f90199abf38f89c5
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Sat Apr 24 19:29:51 2021 +0800
+
+    Add HTML template directory and first template.
+
+commit b041074528323581f02f608bd6858667827f424d
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Sat Apr 24 19:04:41 2021 +0800
+
+    Setting up Flask app
+
+commit 72c7aa1143b4269fd86ee99d949f96d1bcbe32e0
+Author: Darby Edwards <83024882+sirdedz@users.noreply.github.com>
+Date:   Sat Apr 24 18:53:32 2021 +0800
+
+    Update README.md to document instructions
+
+commit 583bb6a4335aadb0cd346ae822ec85a289d36c4d
+Author: Darby Edwards <83024882+sirdedz@users.noreply.github.com>
+Date:   Sat Apr 24 18:32:28 2021 +0800
+
+    Update .gitignore
+
+commit 114d37579bd30c194c8a04d70bf567bec4c2273e
+Author: sirdedz <darbyedwards1@gmail.com>
+Date:   Sat Apr 24 17:58:09 2021 +0800
+
+    Flask skeleton

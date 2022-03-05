@@ -1,0 +1,47 @@
+<!-- LOGIN PAGE -->
+<!DOCTYPE html>
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Login</h2>
+
+<p>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li style="color: red; list-style-type: none;"> {{message}}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+
+</p>
+
+<form name="login" action="" method="post">
+    <div class="form">
+        {{form.hidden_tag()}}
+        <span class="input">
+            <p>
+                {{ form.username.label }}{{ form.username(class="input") }}<br>
+                {% for error in form.username.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+        </span>
+        <span class="input">
+            <p>
+                {{ form.password.label }}{{ form.password(class="input") }}<br>
+                {% for error in form.password.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+        </span>
+        <p> {{ form.remember_me() }} {{ form.remember_me.label }}</p>
+        <p> {{ form.submit() }} </p>
+    </div>
+</form>
+
+<p>To register <a href={{ url_for('register') }}>click here</a></p>
+{% endblock %}

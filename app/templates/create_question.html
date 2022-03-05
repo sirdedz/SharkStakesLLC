@@ -1,0 +1,70 @@
+<!-- page for admins to create quiz questions and quizzes -->
+<!DOCTYPE html>
+
+{% extends "base.html" %}
+
+{% block content %}
+    <div>
+        <h2>Create a question for quiz: {{quiz.title}}</h2>
+
+        <p>
+
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul>
+                {% for message in messages %}
+                <li style="color: red; list-style-type: none;"> {{message}}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+        
+        </p>
+        
+        <form name="create_question" action="" method="post">
+            <div class="form">
+                {{form.hidden_tag()}}
+                <span class="input">
+                    <p>
+                        {{ form.question.label }}{{ form.question(class="input") }}<br>
+                        {% for error in form.question.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </p>
+                </span>
+                <span class="input">
+                    <p>
+                        {{ form.answer.label }}{{ form.answer(class="input") }}<br>
+                        {% for error in form.answer.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </p>
+                </span>
+                <p> {{ form.submit() }} </p>
+            </div>
+        </form>
+        <a href={{ url_for('quiz', title=quiz.title) }}>DONE</a>
+
+        {% if questions %}
+        <br>
+        <hr>
+        <h5>Existing quiz questions:</h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Question</th>
+                    <th>Answer</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for q in questions %}
+                    <tr>
+                        <td>{{q.question}}</td>
+                        <td>{{q.answer}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+{% endblock %}

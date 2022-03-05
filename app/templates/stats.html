@@ -1,0 +1,36 @@
+<!-- page for global statistics -->
+<!DOCTYPE html>
+
+{% extends "base.html" %}
+
+{% block content %}
+    <div id="global-stats">
+        <h4>Global Statistics</h4>
+        {% if results != "None" %}
+            <hr>
+        
+            <p>Average test score: {{results.avg}}%</p>
+            {% if current_user.is_authenticated %}
+                <p>Your average test score: {{results.your_avg}}%</p>
+            {% endif %}
+            <br></br>
+            <hr>
+            {% if results.pop_quiz != None %}
+                <p>Most popular test: {{results.pop_quiz}} has been completed {{results.times_played}} times</p>
+            {% endif %}
+            <br></br>
+            <hr>
+
+            <p>Most popular country: {{results.country}} has {{results.users}} currently registered users</p>
+            <br></br>
+            <hr>
+
+            <p>Average age: The average user is {{results.avg_age}} years old</p>
+            <br></br>
+            <hr>
+        {% else %}
+            <p>No statistics found</p>
+        {% endif %}
+
+    </div>
+{% endblock %}
