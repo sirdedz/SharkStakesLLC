@@ -1,0 +1,64 @@
+<!-- Event page -->
+<!DOCTYPE html>
+
+{% extends "base.html" %}
+
+{% block content %}
+    <script type="text/javascript"> window.event_id = "{{event.id}}"
+        $("#eventChart").ready(function(){
+            drawResults(event_id);
+        });
+    </script>
+
+    <h2>{{event.title}}</h2>
+
+    <div id="eventChartDiv">
+        <canvas id="eventChart" style="height: 200px;"></canvas>
+    </div>
+
+    <button>
+        Create A Listing
+    </button>
+
+    <table id="eventTable" class="sortable">
+        <thead>
+          <tr>
+            <th scope="col">Their Pick</th>
+            <th scope="col">Your Pick</th>
+            <th scope="col">Odds</th>
+            <th scope="col">Amount</th>
+            <th scope="col">BET</th>
+            {% if current_user.username == 'admin' %}
+                <th scope="col">Delete</th>
+            {% endif %}
+          </tr>
+        </thead>
+
+        <tbody>
+            {% for listing in listings %}
+            <tr>
+                <td>{{listing.option}}</td>
+                <td>
+                    {% set first = 'True' %}
+                    {% for option in listing.other_options %}
+
+                        {{option.pick}}
+
+                        {% if not loop.last %}
+                            or
+                        {% endif %}
+
+                    {% endfor %}
+                </td>
+                <td>{{listing.odds}}</td>
+                <td>{{listing.amount}}</td>
+                <td><a href="#">BET</a></td>
+                {% if current_user.username == 'admin' %}
+                    <td><a href={{ url_for('delete_quiz', title=event.title) }}>DEL</a></td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

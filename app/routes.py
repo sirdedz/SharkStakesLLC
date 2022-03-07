@@ -5,7 +5,7 @@ from app.controllers import UserController, QuizController, ResultController, St
 from werkzeug.urls import url_parse
 from werkzeug.datastructures import ImmutableMultiDict
 
-from app.models import User, Quiz, Question, Result
+from app.models import User, Event, Option, Result, Listing
 from datetime import datetime
 import json
 import populate_db
@@ -15,9 +15,43 @@ import populate_db
 def index():
 
     #Get quizzes for front page
-    quizzes = Quiz.query.all()
+    events = Event.query.all()
 
-    return render_template('index.html', quizzes=quizzes)
+    for event in events:
+
+        if len(Listing.query.filter(Listing.event_id==event.id).all()) < 1:
+
+            event.no_listings = True
+
+            continue
+
+        #Get listing with highest odds
+        highest_odds_listing = Listing.query.filter(Listing.event_id==event.id).order_by(Listing.odds.desc()).first()
+
+        highest_odds_pick = Option.query.filter(Option.id==highest_odds_listing.option_id).first()
+
+        highest_odds_pick = highest_odds_pick.pick
+        highest_odds_amount = highest_odds_listing.amount
+        highest_odds = round(highest_odds_listing.odds, 2)
+
+        event.highest_odds = highest_odds
+        event.highest_odds_pick = highest_odds_pick
+        event.highest_odds_amount = highest_odds_amount
+
+        #Get listing with highest bet amount
+        highest_amount_listing = Listing.query.filter(Listing.event_id==event.id).order_by(Listing.amount.desc()).first()
+
+        highest_amount_pick = Option.query.filter(Option.id==highest_amount_listing.option_id).first()
+
+        highest_amount_pick = highest_amount_pick.pick
+        highest_amount_odds = round(highest_amount_listing.odds, 2)
+        highest_amount = highest_amount_listing.amount
+
+        event.highest_amount_odds = highest_amount_odds
+        event.highest_amount_pick = highest_amount_pick
+        event.highest_amount = highest_amount
+
+    return render_template('index.html', events=events)
 
 
 
@@ -49,31 +83,68 @@ def register():
     return UserController.register(form)
 
 
-@app.route('/quiz/<string:title>', methods=['GET'])
-@login_required
-def quiz(title):
 
-    quiz_title = title
-    quiz = Quiz.query.filter_by(title=quiz_title).first()
+@app.route('/event/<string:event_id>', methods=['GET'])
+def event(event_id):
 
-    questions = Question.query.filter(Question.quiz_id==quiz.id).all()
+    #return option, odds, amount in listings array
+    event = Event.query.filter(Event.id==event_id).first()
 
-    return render_template('quiz.html', title="Quiz", quiz=quiz, questions=questions)
+    event_title = event.title
+
+    listings = Listing.query.filter(Listing.event_id==event.id).all()
+
+    listings_final = []
+
+    for listing in listings:
+        new_listing = []
+
+        option = Option.query.filter(Option.id==listing.option_id).first()
+        other_options = Option.query.filter(Option.event_id==event.id).filter(Option.id!=listing.option_id).all()
+
+        option_title = option.pick
+        listing_id = listing.id
+        odds = listing.odds
+        amount = listing.amount
+
+        new_listing = {"id": listing_id, "option": option_title, "odds": odds, "amount": amount, "other_options": other_options}
+
+
+        listings_final.append(new_listing)
+
+    return render_template('event.html', title="Event", event=event, listings=listings_final)
+
+
 
 @app.route('/results', methods=['GET', 'POST'])
 @login_required
 def results():
     return ResultController.generate()
 
-@app.route('/get_results_json')
-def get_results_json():
-    
-    results = Result.query.filter(Result.user_id==current_user.id).all()
-    final = []
 
-    for r in results:
-        percentage = (r.score / r.questions_answered) * 100
-        final.append({percentage: r.date})
+#route for data to be sent for event graph
+@app.route('/get_event_json/<string:event_id>')
+def get_event_json(event_id):
+
+    final = []
+    options_dict = {}
+
+    #get all options for the event
+    options = Option.query.filter(Option.event_id==event_id).all()
+
+    for option in options:
+        options_dict[option.id] = [option.pick]
+    
+    #get all listings for the event CHANGE ORDERBY TO DATETIME
+    listings = Listing.query.filter(Listing.event_id==event_id).order_by(Listing.id.asc()).all()
+
+    #counter to start at earliest time
+    counter = listings[0].id
+
+    for listing in listings:
+        options_dict[listing.option_id].append({"odds": listing.odds, "time": listing.time})
+
+    final.append(options_dict)
 
     return json.dumps(final, default=str)
 
@@ -81,9 +152,8 @@ def get_results_json():
 @login_required
 def user():
     if current_user.username == 'admin':
-        results = Question.query.all()
 
-        return render_template('user.html', title="Results", results=results)
+        return render_template('user.html')
 
     return render_template('user.html', title="Results")
 

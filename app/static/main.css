@@ -223,3 +223,10 @@ table td{
   margin-bottom: 200px;
 
 }
+
+
+/*------------------- EVENT.HTML --------------------*/
+#eventChartDiv{
+    width: 80vw;
+    margin: 0 auto;
+}

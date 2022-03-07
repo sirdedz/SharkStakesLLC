@@ -75,7 +75,7 @@ function nextQuestion(){
 
 }
 
-//moves tot eh previous question
+//moves to the previous question
 function prevQuestion(){
     current_q -= 1;
 
@@ -175,22 +175,59 @@ const dataPoints = [];
 function addData(user_data){
     json = JSON.parse(user_data);
 
-    for(var i = 0; i < json.length; i++){
-        for (var key in json[i]){
-            dataPoints.push(key);
-            labels.push(json[i][key]);
-        }
-    }
+    json = json[0];
 
     const data = {
         labels: labels,
-        datasets: [{
-            label: 'Scores Over Time',
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgb(255, 99, 132)',
-            data: dataPoints,
-        }]
+        datasets: [],
     };
+
+    for(var i in json){
+        for(var x = 1; x < json[i].length; x++){
+            if(!labels.includes(json[i][x]["time"])){
+                index = indexIntoSortedArray(labels, json[i][x]["time"]);
+                labels.splice(index, 0, json[i][x]["time"]);
+            }
+        }
+    }
+
+    for(var i in json){      
+        
+        dataPoints[i] = [];
+
+        r = Math.floor(Math.random()*255);
+        g = Math.floor(Math.random()*255);
+        b = Math.floor(Math.random()*255);
+        colour = 'rgb(' + r + ', ' + g + ', ' + b + ')';
+
+        for(var x = 1; x < json[i].length; x++){
+            index = indexIntoSortedArray(labels, json[i][x]["time"]);
+            //labels.splice(index, 0, json[i][x]["time"]);
+
+            dataPoints[i][index] = json[i][x]["odds"];
+        }
+
+
+        data["datasets"].push({
+            label: json[i][0],
+            backgroundColor: colour,
+            borderColor: colour,
+            data: dataPoints[i],
+            spanGaps: true,
+        })
+    }
+
+    function indexIntoSortedArray(array, value) {
+        var low = 0,
+            high = array.length;
+    
+        while (low < high) {
+            var mid = (low + high) >>> 1;
+            if (array[mid] < value) low = mid + 1;
+            else high = mid;
+        }
+        return low;
+    }
 
     const config = {
         type: 'line',
@@ -199,15 +236,16 @@ function addData(user_data){
     };
 
     var myChart = new Chart(
-        document.getElementById("myChart").getContext("2d"),
+        document.getElementById("eventChart").getContext("2d"),
         config
       );
 }
 
-$("#results-table").ready(drawResults);
+//$("#eventChart").ready(drawResults);
 
-function drawResults(){
-    if($("#myChart").length > 0 ){
-        $.get('get_results_json', addData);
+function drawResults(event_id){
+    if($("#eventChart").length > 0 ){
+        path = `${location.origin}/get_event_json/` + event_id;
+        $.get(path, addData);
     }
 }

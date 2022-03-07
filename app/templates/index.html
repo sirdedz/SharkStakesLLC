@@ -37,37 +37,35 @@
     </div>
 
     <div class="coming-soon table-striped">
-        <h3>Available Sporting Quizzes</h3>
+        <h3>Events</h3>
 
         <table>
             <thead>
               <tr>
                 <th scope="col">Sport</th>
-                <th scope="col">Quiz</th>
-                <th scope="col">Complete</th>
-                {% if current_user.username == 'admin' %}
-                    <th scope="col">Delete</th>
-                {% endif %}
+                <th scope="col">Event</th>
+                <th scope="col">Best Odds</th>
+                <th scope="col">Biggest Bet</th>
               </tr>
             </thead>
 
             <tbody>
-                {% for quiz in quizzes %}
+                {% for event in events %}
                 <tr>
-                    <td>{{quiz.sport}}</td>
-                    <td>{{quiz.title}}</td>
-                    <td><a href={{ url_for('quiz', title=quiz.title) }}>GO</a></td>
-                    {% if current_user.username == 'admin' %}
-                        <td><a href={{ url_for('delete_quiz', title=quiz.title) }}>DEL</a></td>
+                    <td>{{event.sport}}</td>
+                    <td>{{event.title}}</td>
+
+                    {% if event.no_listings %}
+                    <td><a href={{ url_for('event', event_id=event.id) }}>no bets yet</a></td>
+                    <td><a href={{ url_for('event', event_id=event.id) }}>no bets yet</a></td>
+                    {% else %}
+                    <td><a href={{ url_for('event', event_id=event.id) }}>${{event.highest_odds_amount}} on {{event.highest_odds_pick}} @ ${{event.highest_odds}}</a></td>
+                    <td><a href={{ url_for('event', event_id=event.id) }}>${{event.highest_amount}} on {{event.highest_amount_pick}} @ ${{event.highest_amount_odds}}</a></td>
                     {% endif %}
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-        
-        {% if current_user.is_authenticated %}
-            <a href={{ url_for('create_quiz') }}> CREATE QUIZ </a>
-        {% endif %}
     </div>
 
 {% endblock %}

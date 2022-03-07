@@ -26,6 +26,9 @@
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="{{ url_for('static', filename='main.js') }}"></script>
 
+        <!-- SORTABLE TABLES JS -->
+        <script src="{{ url_for('static', filename='sorttable.js') }}"></script>
+
 
         {% if title %}
         <title>{{title}} - SharkStakes</title>
@@ -37,7 +40,9 @@
         <!-- HEADER -->
         <div class="header">
             <div class="header-left">
-                <img src="{{ url_for('static', filename='assets/sportquizlogo.png') }}" alt="Shark Stakes LLC" onclick="toHome()">
+                <img src="{{ url_for('static', filename='assets/logo1.png') }}" alt="Shark Stakes LLC" onclick="toHome()">
+                <p><a href={{ url_for('index') }}></a>Events</a></p>
+                <p><a href={{ url_for('index') }}></a>Sports</a></p>
                 <p><a href={{ url_for('results') }}>Results</a></p>
                 <p><a href={{ url_for('stats') }}>Stats</a></p>
                 <p><a href={{ url_for('about') }}>About</a></p>
@@ -64,8 +69,8 @@
         </div>
         <!-- FOOTER -->
         <div class="footer">
-            <p>Sport Trivia LLC</p>
-            <p>Proudly owned and founded by Darby Edwards & Samuel Kent</p>
+            <p>Shark Stakes LLC</p>
+            <p>Proudly founded and owned by Darby Edwards</p>
         </div>
     </body>
 </html>

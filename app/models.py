@@ -36,33 +36,43 @@ class User(UserMixin, db.Model):
         return check_password_hash(self.password_hash, password)
 
 
-#model/table for quiz
-class Quiz(db.Model):
+#model for event
+class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(128))
     sport = db.Column(db.String(64))
 
     def __repr__(self):
-        return '<Quiz {}>'.format(self.title)
+        return '<Event {}>'.format(self.title)
 
-#table for quiz question w foreign key quiz_id
-class Question(db.Model):
+#table for event result options
+class Option(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    question = db.Column(db.String(256))
-    answer = db.Column(db.String(256))
-    sport = db.Column(db.String(64))
-    quiz_id = db.Column(db.Integer, db.ForeignKey('quiz.id'))
+    pick = db.Column(db.String(64))
+    event_id = db.Column(db.Integer, db.ForeignKey('event.id'))
 
     def __repr__(self):
-        return '<Question {}>'.format(self.question)
+        return '<Option {}>'.format(self.pick)
 
-#table for quiz result 
+#table for event listings
+class Listing(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    event_id = db.Column(db.Integer, db.ForeignKey('event.id'))
+    odds = db.Column(db.Integer)
+    amount = db.Column(db.Integer)
+    option_id = db.Column(db.Integer, db.ForeignKey('option.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    time = db.Column(db.Integer)
+
+    def __repr__(self):
+        return '<Listing {}>'.format(self.odds)
+
+#table for previous results
 class Result(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     score = db.Column(db.Integer)
     questions_answered = db.Column(db.Integer)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    quiz_title = db.Column(db.String(128), db.ForeignKey('quiz.title'))
     date = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self):
