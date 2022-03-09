@@ -204,16 +204,20 @@ function addData(user_data){
             index = indexIntoSortedArray(labels, json[i][x]["time"]);
             //labels.splice(index, 0, json[i][x]["time"]);
 
-            dataPoints[i][index] = json[i][x]["odds"];
+            odds = json[i][x]["odds"];
+
+            dataPoints[i][index] = odds;
         }
 
 
         data["datasets"].push({
-            label: json[i][0],
-            backgroundColor: colour,
-            borderColor: colour,
+            label: json[i][0]["pick"] + " to win",
+            backgroundColor: json[i][0]["colour"],
+            borderColor: json[i][0]["colour"],
+            pointBorderColor: json[i][0]["accent"],
+            pointRadius: 0,
             data: dataPoints[i],
-            spanGaps: true,
+            spanGaps: true
         })
     }
 
@@ -232,7 +236,52 @@ function addData(user_data){
     const config = {
         type: 'line',
         data,
-        options: {}
+        options: {
+            plugins: {
+                title: {
+                    display: false,
+                    text: 'Current Listings'
+                },
+                subtitle: {
+                    display: true,
+                    text: 'Your best odds if you bet: '
+                }
+            },
+            responsive: true,
+            scales: {
+                yAxes: {
+                    title: {
+                        display: true,
+                        text: "Best Odds ($)",
+                        font: {
+                            size: 15
+                        }
+                    },
+                    ticks: {
+                        precision: 0
+                    }
+                },
+                xAxes: {
+                    title: {
+                        display: true,
+                        text: "Time",
+                        font: {
+                            size: 15
+                        }
+                    },
+                    ticks: {
+                        precision: 0,
+                    },
+                    displayFormats: {
+                        
+                    },
+                },
+            },
+            interaction: {
+                intersect: false,
+                mode: "index",
+            }
+        }
     };
 
     var myChart = new Chart(
@@ -241,11 +290,19 @@ function addData(user_data){
       );
 }
 
-//$("#eventChart").ready(drawResults);
-
 function drawResults(event_id){
     if($("#eventChart").length > 0 ){
         path = `${location.origin}/get_event_json/` + event_id;
         $.get(path, addData);
     }
+}
+
+
+//CREATE A LISTING POPUP
+function createListing(event_id){
+    $("#createListingPopup").removeClass("hidden");
+}
+
+function createListingClose(){
+    $("#createListingPopup").addClass("hidden");
 }

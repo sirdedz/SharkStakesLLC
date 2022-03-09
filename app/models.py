@@ -50,6 +50,8 @@ class Option(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     pick = db.Column(db.String(64))
     event_id = db.Column(db.Integer, db.ForeignKey('event.id'))
+    colour = db.Column(db.String(64))
+    accentColour = db.Column(db.String(64))
 
     def __repr__(self):
         return '<Option {}>'.format(self.pick)
@@ -63,6 +65,7 @@ class Listing(db.Model):
     option_id = db.Column(db.Integer, db.ForeignKey('option.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     time = db.Column(db.Integer)
+    datetime = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self):
         return '<Listing {}>'.format(self.odds)

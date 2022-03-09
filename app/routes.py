@@ -7,6 +7,7 @@ from werkzeug.datastructures import ImmutableMultiDict
 
 from app.models import User, Event, Option, Result, Listing
 from datetime import datetime
+import time
 import json
 import populate_db
 
@@ -99,6 +100,9 @@ def event(event_id):
     for listing in listings:
         new_listing = []
 
+        user = User.query.filter(User.id==listing.user_id).first()
+        username = user.username
+
         option = Option.query.filter(Option.id==listing.option_id).first()
         other_options = Option.query.filter(Option.event_id==event.id).filter(Option.id!=listing.option_id).all()
 
@@ -106,9 +110,9 @@ def event(event_id):
         listing_id = listing.id
         odds = listing.odds
         amount = listing.amount
+        daymonth = str(listing.datetime.day) + '/' + str(listing.datetime.month) + " " + str(listing.datetime.hour) + ":" + str(listing.datetime.minute).zfill(2)
 
-        new_listing = {"id": listing_id, "option": option_title, "odds": odds, "amount": amount, "other_options": other_options}
-
+        new_listing = {"id": listing_id, "option": option_title, "odds": odds, "amount": amount, "other_options": other_options, "username": username, "daymonth": daymonth}
 
         listings_final.append(new_listing)
 
@@ -133,20 +137,26 @@ def get_event_json(event_id):
     options = Option.query.filter(Option.event_id==event_id).all()
 
     for option in options:
-        options_dict[option.id] = [option.pick]
+        options_dict[option.id] = [{"pick": option.pick, "colour": option.colour, "accent": option.accentColour}]
+        #options_dict[option.id + len(options)] = [{"pick": "Cavs your odds", "colour": "grey", "accent": option.accentColour}]
     
     #get all listings for the event CHANGE ORDERBY TO DATETIME
     listings = Listing.query.filter(Listing.event_id==event_id).order_by(Listing.id.asc()).all()
 
-    #counter to start at earliest time
-    counter = listings[0].id
+    if len(listings) > 0:
+        for listing in listings:
+            index = listing.option_id + len(options)
+            recip_odds = (1/listing.odds)+1
 
-    for listing in listings:
-        options_dict[listing.option_id].append({"odds": listing.odds, "time": listing.time})
+            options_dict[listing.option_id].append({"odds": listing.odds, "time": listing.time})
+            #options_dict[index].append({"odds": recip_odds, "time": listing.time})
 
-    final.append(options_dict)
+        final.append(options_dict)
 
+    
     return json.dumps(final, default=str)
+
+
 
 @app.route('/user', methods=['GET', 'POST'])
 @login_required

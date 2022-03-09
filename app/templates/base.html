@@ -41,10 +41,9 @@
         <div class="header">
             <div class="header-left">
                 <img src="{{ url_for('static', filename='assets/logo1.png') }}" alt="Shark Stakes LLC" onclick="toHome()">
-                <p><a href={{ url_for('index') }}></a>Events</a></p>
+                <p onclick="toHome()">Events</p>
                 <p><a href={{ url_for('index') }}></a>Sports</a></p>
                 <p><a href={{ url_for('results') }}>Results</a></p>
-                <p><a href={{ url_for('stats') }}>Stats</a></p>
                 <p><a href={{ url_for('about') }}>About</a></p>
             </div>
             <div class="header-middle">

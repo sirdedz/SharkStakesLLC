@@ -4,6 +4,8 @@
 :root{
     --header_height: 80px;
     --grey1: rgba(0, 0, 0, 0.05);
+    --grey1hex: "#0000000d";
+    --grey2: rgba(0, 0, 0, 0.5);
     --navy1: #26374D;
     --navy1rgb: rgba(38, 55, 77, 1);
     --green1: #146E1E;
@@ -109,6 +111,14 @@ body{
 
 .hidden{
     display: none;
+}
+
+
+button{
+    background-color: var(--navy1);
+    border: none;
+    color: white;
+    font-family: 'Arial';
 }
 
 /*------------------- INDEX.HTML --------------------*/
@@ -226,7 +236,193 @@ table td{
 
 
 /*------------------- EVENT.HTML --------------------*/
+
+#eventTitle{
+    text-align: center;
+    font-size: 3rem;
+    color: var(--grey2);
+    padding-top: 0.5em;
+}
+
+
 #eventChartDiv{
-    width: 80vw;
+    width: 70vw;
     margin: 0 auto;
+    padding: 1em 0;
+}
+
+#eventTable th:hover{
+    cursor: pointer;
+}
+
+#eventTable th{
+    font-style: italic;
+    font-weight: normal;
+}
+
+#eventTable{
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    width: 85vw;
+}
+
+#createListing{
+    width: 85vw;
+    font-weight: bold;
+    border-radius: 10px 10px 0 0;
+    box-shadow: rgba(0, 0, 0, 0.35) 2px -2px 20px 0px inset;
+    /*box-shadow: rgba(0, 0, 0, 0.35) 2px 2px 20px 0px;*/
+}
+
+#createListing:hover{
+    /*box-shadow: rgba(0, 0, 0, 0.35) 2px -2px 20px 0px inset;*/
+    box-shadow: rgba(0, 0, 0, 0.35) 2px 2px 20px 0px;
+}
+
+
+
+
+.deconstructed {
+    position: absolute;
+    text-align: left;
+    top: var(--header_height);
+    left: 0;
+    font-size: 12em;
+    color: transparent;
+    font-family: 'Cambay', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.03em;
+    z-index: -999;
+  }
+  
+  .deconstructed > div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    color: var(--grey1);
+    pointer-events: none;
+  }
+  
+  .deconstructed > div:nth-child(1) {
+    -webkit-mask-image: linear-gradient(black 50%, transparent 50%);
+    mask-image: linear-gradient(black 50%, transparent 50%);
+    animation: deconstructed1 10s infinite;
+  }
+  
+  .deconstructed > div:nth-child(2) {
+    -webkit-mask-image: linear-gradient(transparent 50%, black 50%);
+    mask-image: linear-gradient(transparent 50%, black 50%);
+    animation: deconstructed2 10s infinite;
+  }
+  
+  
+  @keyframes deconstructed1 {
+    0% {
+      transform: translateX(1%);
+    }
+    45% {
+        transform: translateX(-0.9%);
+      }
+    50% {
+      transform: translateX(-1%);
+    }
+    95% {
+        transform: translateX(0.9%);
+      }
+    100% {
+      transform: translateX(1%);
+    }
+  }
+  
+  @keyframes deconstructed2 {
+    0% {
+      transform: translateX(-1%);
+    }
+    45% {
+        transform: translateX(0.9%);
+      }
+    50% {
+      transform: translateX(1%);
+    }
+    95% {
+        transform: translateX(-0.9%);
+      }
+    100% {
+      transform: translateX(-1%);
+    }
+  }
+
+
+#createListingPopup{
+    width: 70vw;
+    background-color: white;
+    border: 3px solid var(--navy1);
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 20px 20px 20px 0px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-height: 75vh;
+    overflow: scroll;
+}
+
+#createListingPopup table{
+    width: 100%;
+}
+
+#createListingPopup table tr{
+
+}
+
+#createListingPopup table tr td{
+    text-align: left;
+    padding: 0.4em 2em;
+}
+
+#createListingPopup input[type="number"]{
+    width: 4em;
+    border: none;
+    background-color: var(--grey1);
+    border-radius: 2px;
+    text-align: center;
+}
+
+#createListingPopup input[type="submit"]{
+    width: 100%;
+    padding: 10px 0;
+    border: none;
+    background-color: var(--grey1);
+    border-radius: 2px;
+    text-align: center;
+}
+
+#createListingPopup select{
+    padding: 5px 1em;
+    border: none;
+    background-color: var(--grey1);
+    border-radius: 2px;
+}
+
+#createListingClose{
+    padding: 0.5em;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-weight: bold;
+    width: 3em;
+    height: 3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+}
+
+#createListingClose:hover{
+    cursor: pointer;
+    background-color: var(--grey1);
 }

@@ -1,0 +1,39 @@
+TODO:
+- Account page
+    - Redesign
+    - Add/withdraw balance
+    - Show current listings
+    - Show past listings & result of it
+    - Remove current listings
+    - Change password
+    - Edit details
+
+- Events page
+    - Date of Event
+    - Create a listing
+    - Filter table by an option
+    - Drop down showing/display in some way the amount that the matching user would have to front and the odds they get
+
+- Sports page
+    - Categories of sports
+
+- Event page
+    - Be able to create listing
+    - Be able to bet on a listing
+
+
+- Functionality
+    - datetime for listings
+    - Colour included in option for team and then used for line graph
+
+- Before launch
+    - Check all auth
+    - Add bootstrap, chartjs, jquery libraries to local dir
+
+- Group listings by minute
+    - Get avg odds for that minute
+
+
+
+
+
