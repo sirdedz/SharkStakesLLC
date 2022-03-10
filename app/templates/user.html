@@ -3,7 +3,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="user-main">
+    <!-- <div class="user-main">
         <h2>Welcome back, {{ current_user.username }}</h2>
         <h6>User Details:</h6>
         <p>First name: {{ current_user.firstname }}</p>
@@ -20,5 +20,52 @@
 
     {% if current_user.username == 'admin' %}
         <p><a href={{ url_for('populate') }}>Populate Database</a></p>
-    {% endif %}
+    {% endif %} -->
+
+
+    <div class="user-main">
+        <div id="user-image">
+            <img src="{{ url_for('static', filename='assets/temp_user.png') }}" alt="User Profile Image">
+            <button>Edit Profile</button>
+        </div>
+        <div id="user-details">
+            <h2>{{ current_user.username }}</h2>
+            <p>First name: {{ current_user.firstname }}</p>
+            <p>Surname: {{ current_user.surname }}</p>
+            <p>Date of Birth: {{ current_user.dob }}</p>
+            <p>Phone: {{ current_user.phone }}</p>
+            <p>Email: {{current_user.email }}</p>
+            <p><a href={{ url_for('logout') }}>Logout</a></p>
+        </div>
+        <div id="user-listings">
+            <h5>YOUR CURRENT LISTINGS</h5>
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="user-history">
+            <h5>YOUR LISTING HISTORY</h5>
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}

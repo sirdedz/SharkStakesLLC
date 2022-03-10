@@ -56,6 +56,12 @@
                 </div>
             {% else %}
                 <div class="header-right">
+                    <div id="balance">
+                        <span>
+                            <div>$123</div>
+                            <i class="bi bi-plus-circle-fill"></i>
+                        </span>
+                    </div>
                     <p><a href={{ url_for('user') }}>{{current_user.username}}</a></p>
                     <a href={{ url_for('user') }}> <i class="bi bi-person-circle"></i></a>
                 </div>
