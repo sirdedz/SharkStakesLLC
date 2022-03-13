@@ -96,6 +96,15 @@ def event(event_id):
     listings = Listing.query.filter(Listing.event_id==event.id).all()
 
     listings_final = []
+    options = Option.query.filter(Option.event_id==event.id).all()
+
+    for option in options:
+        best_listing = Listing.query.filter(Listing.option_id==option.id).order_by(Listing.odds.desc()).first()
+
+        if best_listing:
+            option.best_odds = best_listing.odds
+        else:
+            option.best_odds = 0
 
     for listing in listings:
         new_listing = []
@@ -112,11 +121,11 @@ def event(event_id):
         amount = listing.amount
         daymonth = str(listing.datetime.day) + '/' + str(listing.datetime.month) + " " + str(listing.datetime.hour) + ":" + str(listing.datetime.minute).zfill(2)
 
-        new_listing = {"id": listing_id, "option": option_title, "odds": odds, "amount": amount, "other_options": other_options, "username": username, "daymonth": daymonth}
+        new_listing = {"id": listing_id, "option": option_title, "odds": odds, "amount": amount, "username": username, "daymonth": daymonth, "other_options": other_options}
 
         listings_final.append(new_listing)
 
-    return render_template('event.html', title="Event", event=event, listings=listings_final)
+    return render_template('event.html', title="Event", event=event, listings=listings_final, options=options)
 
 
 

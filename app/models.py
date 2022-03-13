@@ -23,6 +23,7 @@ class User(UserMixin, db.Model):
     postcode = db.Column(db.Integer)
     phone = db.Column(db.Integer)
     email = db.Column(db.String(128), unique=True, index=True)
+    balance = db.Column(db.Integer)
     password_hash = db.Column(db.String(128))
 
 #functionality for setting and checking password hashes
@@ -61,6 +62,7 @@ class Listing(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     event_id = db.Column(db.Integer, db.ForeignKey('event.id'))
     odds = db.Column(db.Integer)
+    user_odds = db.Column(db.Integer)
     amount = db.Column(db.Integer)
     option_id = db.Column(db.Integer, db.ForeignKey('option.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))

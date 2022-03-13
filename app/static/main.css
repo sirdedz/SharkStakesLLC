@@ -454,6 +454,18 @@ table td{
     background-color: var(--grey1);
 }
 
+#event_options{
+    display: flex;
+    width: 85vw;
+    background-color: var(--navy1);
+    color: white;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+#event_options *{
+    flex-grow: 1;
+}
 
 /*------------------- USER.HTML --------------------*/
 

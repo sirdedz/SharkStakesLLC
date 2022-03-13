@@ -8,6 +8,7 @@
         $("#eventChart").ready(function(){
             drawResults(event_id);
         });
+
     </script>
 
     <!-- <h2 id="eventTitle">{{event.title}}</h2> -->
@@ -61,10 +62,12 @@
                     <td colspan="2">
                         <div>
                             You bet
-                            <select>
-                                <option>
-                                    For all option in options
-                                </option>
+                            <select id="pick_selector">
+                                {% for option in options %}
+
+                                    <option value="{{ option.id }}" data-best_odds="{{ option.best_odds }}">{{ option.pick }}</option>
+
+                                {% endfor %}
                             </select>
 
                             to win.
@@ -73,47 +76,57 @@
                 </tr>
                 <tr>
                     <td>
-                        Enter Your Odds: <input type="number"/>
+                        Enter Your Odds ($): <input type="number" id="user_odds" value="2" step="0.05"/>
                     </td>
                     <td>
-                        Their Odds on other option to win: <input type="number"/>
+                        Their Odds on other option to win ($): <input type="number" id="their_odds" value="1.5" step="0.05"/>
                     </td>
                 </tr>
                 <tr>
                     <td>
 
                     </td>
-                    <td>
-                        Current best odds for other option: XXX
+                    <td id="best_odds">
+                        Current best odds offered: XXX
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        Amount: 
-                        <input type="number"/>
+                        Bet Amount: $ 
+                        <input type="number" id="amount" value="1" step="1"/>
                     </td>
-                    <td>
+                    <td id="return">
                         Return: XXX
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        Current Balance: XXX
+                        Current Balance: ${{current_user.balance}}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        Terms and Conditions
+                        <a href="#" style="text-decoration: underline;">Terms and Conditions</a>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <input type="submit" value="BET"/>
+                        <input type="submit" value="MAKE LISTING"/>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
+
+    <!-- <div id="event_options">
+        {% for option in options %}
+
+            <div>
+                {{ option.pick }} to win
+            </div>
+
+        {% endfor %}
+    </div> -->
 
     <table id="eventTable" class="sortable">
         <thead>

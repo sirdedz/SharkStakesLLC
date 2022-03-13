@@ -191,6 +191,8 @@ function addData(user_data){
         }
     }
 
+    //labels[labels.length] = "";
+
     for(var i in json){      
         
         dataPoints[i] = [];
@@ -301,8 +303,49 @@ function drawResults(event_id){
 //CREATE A LISTING POPUP
 function createListing(event_id){
     $("#createListingPopup").removeClass("hidden");
+
+    $("#pick_selector").trigger('input');
+    updateReturn();
 }
 
 function createListingClose(){
     $("#createListingPopup").addClass("hidden");
 }
+
+//Update reciprical odds when user enters odds
+$(document).on('keyup mouseup', '#user_odds', function() {  
+    user_odds = $(this).val();
+    their_odds = (1/user_odds + 1).toFixed(2);
+    $('#their_odds').val(their_odds);  
+    
+    //Change return amount
+    updateReturn();                                                                                                              
+});
+
+$(document).on('keyup mouseup', '#their_odds', function() {  
+    their_odds = $(this).val();
+    user_odds = (1/their_odds + 1).toFixed(2);
+    $('#user_odds').val(user_odds);  
+    
+    //Change return amount
+    updateReturn();  
+});
+
+$(document).on('keyup mouseup', '#amount', function() {  
+    //Change return amount
+    updateReturn();  
+});
+
+function updateReturn(){
+    //Change return amount
+    current_amount = $("#amount").val();
+    user_odds = $("#user_odds").val();
+    $('#return').html("Return: $" + current_amount * user_odds);   
+}
+
+
+//SET BEST ODDS FOR OPTION ON CHANGE
+$(document).on('input', '#pick_selector', function() {  
+    best_odds = $('option:selected', this).attr('data-best_odds');
+    $("#best_odds").html("Current best odds offered: $" + best_odds);
+});

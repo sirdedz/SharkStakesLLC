@@ -11,9 +11,11 @@ TODO:
 - Events page
     - Date of Event
     - Create a listing
+        - Upload to db
+        - Remove from user balance
     - Filter table by an option
-    - Drop down showing/display in some way the amount that the matching user would have to front and the odds they get
 
+    
 - Sports page
     - Categories of sports
 
