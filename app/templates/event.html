@@ -65,7 +65,7 @@
                             <select id="pick_selector">
                                 {% for option in options %}
 
-                                    <option value="{{ option.id }}" data-best_odds="{{ option.best_odds }}">{{ option.pick }}</option>
+                                    <option value="{{ option.id }}" data-best_odds="{{ option.best_odds }}" data-best_odds_amount="{{ option.best_odds_amount }}" data-event_id="{{ event.id }}">{{ option.pick }}</option>
 
                                 {% endfor %}
                             </select>
@@ -76,10 +76,10 @@
                 </tr>
                 <tr>
                     <td>
-                        Enter Your Odds ($): <input type="number" id="user_odds" value="2" step="0.05"/>
+                        Enter Your Odds ($): <input type="number" id="user_odds" value="2" step="0.05" min="1"/>
                     </td>
                     <td>
-                        Their Odds on other option to win ($): <input type="number" id="their_odds" value="1.5" step="0.05"/>
+                        Their Odds on other option to win ($): <input type="number" id="their_odds" value="2" step="0.05" min="1"/>
                     </td>
                 </tr>
                 <tr>
@@ -93,7 +93,7 @@
                 <tr>
                     <td>
                         Bet Amount: $ 
-                        <input type="number" id="amount" value="1" step="1"/>
+                        <input type="number" id="amount" value="1" step="1" min="1"/>
                     </td>
                     <td id="return">
                         Return: XXX
@@ -106,12 +106,12 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <a href="#" style="text-decoration: underline;">Terms and Conditions</a>
+                        <input type="checkbox"/><a href="#" style="text-decoration: underline; padding-left: 20px">Terms and Conditions</a>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <input type="submit" value="MAKE LISTING"/>
+                        <input type="submit" value="MAKE LISTING" onclick="postListing({{ current_user.id }})"/>
                     </td>
                 </tr>
             </tbody>
@@ -135,7 +135,7 @@
             <th scope="col">Their Pick</th>
             <th scope="col">Your Pick</th>
             <th scope="col">Your Odds</th>
-            <th scope="col">Amount</th>
+            <th scope="col">You Bet</th>
             <th scope="col">Return</th>
             <th scope="col">DateTime</th>
             <th scope="col">MATCH</th>
@@ -163,8 +163,8 @@
                     {% endfor %}
                 </td>
                 <td>{{listing.odds}}</td>
-                <td>{{listing.amount}}</td>
-                <td>{{'%.02f' | format(listing.amount * listing.odds | float)}}</td>
+                <td>${{listing.match_amount}}</td>
+                <td>{{'%.02f' | format(listing.user_return | float)}}</td>
                 <td>{{listing.daymonth}}</td>
                 <td><a href="#">MATCH</a></td>
                 {% if current_user.username == 'admin' %}

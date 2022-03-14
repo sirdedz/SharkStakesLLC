@@ -70,7 +70,7 @@ class UserController():
             return redirect(url_for('register'))
 
         #otherwise create a new database entry
-        new_user = User(username=username, email=email, firstname=firstname, surname=surname, dob=dob, address=address, country=country, postcode=postcode, state=state, phone=phone)
+        new_user = User(username=username, email=email, firstname=firstname, surname=surname, dob=dob, address=address, country=country, postcode=postcode, state=state, phone=phone, balance=0)
         new_user.set_password(password)
         db.session.add(new_user)
         db.session.commit()

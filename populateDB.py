@@ -14,8 +14,9 @@ def run():
         amount = random.randint(40, 1000)
         option_id = 1
         option_id_reciprical = 2
+        calculated_their_odds = math.floor(((1/(odds-1))+1) * 100) / 100
 
-        new_listing = Listing(event_id=1, user_id=1, odds=odds, amount=amount, option_id=option_id, time=a)
+        new_listing = Listing(event_id=1, user_id=1, odds=odds, listers_odds=calculated_their_odds,amount=amount, option_id=option_id, time=a, user_return=odds*amount)
         #new_listing_reciprical = Listing(event_id=1, user_id=1, odds=(1/odds+1), amount=amount, option_id=option_id_reciprical, time=a)
 
         db.session.add(new_listing)
@@ -27,9 +28,10 @@ def run():
         
         odds = round(((-1/3)*math.sqrt(a) + 4)*((random.random()/10)+1), 2)
         amount = random.randint(40, 1000)
+        calculated_their_odds = math.floor(((1/(odds-1))+1) * 100) / 100
         option_id = 2
 
-        new_listing = Listing(event_id=1, user_id=1, odds=odds, amount=amount, option_id=option_id, time=a, datetime=datetime.utcnow())
+        new_listing = Listing(event_id=1, user_id=1, odds=odds, listers_odds=calculated_their_odds, amount=amount, option_id=option_id, time=a, user_return=odds*amount, datetime=datetime.utcnow())
 
         db.session.add(new_listing)
         db.session.commit()

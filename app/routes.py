@@ -9,6 +9,7 @@ from app.models import User, Event, Option, Result, Listing
 from datetime import datetime
 import time
 import json
+import math
 import populate_db
 
 @app.route('/')
@@ -103,6 +104,7 @@ def event(event_id):
 
         if best_listing:
             option.best_odds = best_listing.odds
+            option.best_odds_amount = best_listing.amount
         else:
             option.best_odds = 0
 
@@ -120,8 +122,9 @@ def event(event_id):
         odds = listing.odds
         amount = listing.amount
         daymonth = str(listing.datetime.day) + '/' + str(listing.datetime.month) + " " + str(listing.datetime.hour) + ":" + str(listing.datetime.minute).zfill(2)
+        match_amount = math.floor((listing.user_return-listing.amount) * 100) / 100
 
-        new_listing = {"id": listing_id, "option": option_title, "odds": odds, "amount": amount, "username": username, "daymonth": daymonth, "other_options": other_options}
+        new_listing = {"id": listing_id, "option": option_title, "odds": odds, "amount": amount, "username": username, "daymonth": daymonth, "other_options": other_options, "user_return": listing.user_return, "match_amount": match_amount}
 
         listings_final.append(new_listing)
 
@@ -165,6 +168,68 @@ def get_event_json(event_id):
     
     return json.dumps(final, default=str)
 
+@app.route('/post_listing', methods=['POST'])
+@login_required
+def post_listing():
+    jsonData = request.get_json(force=True)
+
+    #Get specific data
+    print(jsonData)
+    event_id = int(jsonData[0]["event_id"])
+    user_id = int(jsonData[0]["user_id"])
+    option_id = int(jsonData[0]["option_id"])
+    user_odds = float(jsonData[0]["user_odds"])
+    their_odds = float(jsonData[0]["their_odds"])
+    amount = float(jsonData[0]["amount"])
+    listing_return = float(jsonData[0]["listing_return"])
+
+    msg = {
+        'event_id': event_id,
+    }
+
+    #Check if user_id is the same as the user logged in
+    if not current_user.id == user_id:
+        msg['result'] = 'failure'
+        msg['error'] = "User ID's dont match!"
+
+        return msg
+
+    #Check the user has the required balance
+    user = User.query.filter(User.id==current_user.id).first()
+    user_balance = user.balance
+
+    if not user_balance >= amount:
+        msg['result'] = 'failure'
+        msg['error'] = "Balance not sufficient!"
+
+        return msg
+
+    #check that the odds are validated
+    if user_odds < 1 or their_odds < 1 or amount < 1:
+        msg['result'] = 'failure'
+        msg['error'] = "Odds are invalid"
+
+        return msg
+
+    calculated_their_odds = math.floor(((1/(user_odds-1))+1) * 100) / 100
+    if user_odds * amount != listing_return or their_odds != calculated_their_odds:
+        msg['result'] = 'failure'
+        msg['error'] = "Odds do not match"
+
+        return msg
+
+
+    #Remove bet amount from user
+    current_user.balance -= amount
+
+    #Add new listing to DB
+    new_listing = Listing(event_id=event_id, odds=their_odds, listers_odds=user_odds, amount=amount, option_id=option_id, user_id=user_id, datetime=datetime.utcnow(), user_return=listing_return)
+    db.session.add(new_listing)
+    db.session.commit()
+    
+    msg['result'] = 'success'
+
+    return msg
 
 
 @app.route('/user', methods=['GET', 'POST'])

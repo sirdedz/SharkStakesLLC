@@ -4,36 +4,40 @@ TODO:
     - Add/withdraw balance
     - Show current listings
     - Show past listings & result of it
-    - Remove current listings
+    - Ability to remove current listings
     - Change password
     - Edit details
 
-- Events page
+- Index page
     - Date of Event
-    - Create a listing
-        - Upload to db
-        - Remove from user balance
-    - Filter table by an option
 
-    
+
 - Sports page
     - Categories of sports
 
-- Event page
-    - Be able to create listing
-    - Be able to bet on a listing
+- Events page
+    - Date of event countdown
+    - Handle time scale on graph (x-axis)
+    - Filter table by pick
+    - Create a listing
+        - Upload to db
+        - Remove from user balance
+        - Add T&C's
+        - Add confirmation before listing
+        - Close the popup when clicking outside of div
+
+    - Matching a bet on a listing
+        - Listing moved to fulfilled
+        - Balance removed from user balance
+        - Confirmation before matching
+
+    *return amount needed for each listing to calculate how much the matching user needs to front
 
 
-- Functionality
-    - datetime for listings
-    - Colour included in option for team and then used for line graph
 
 - Before launch
     - Check all auth
     - Add bootstrap, chartjs, jquery libraries to local dir
-
-- Group listings by minute
-    - Get avg odds for that minute
 
 
 

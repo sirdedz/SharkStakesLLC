@@ -260,7 +260,7 @@ function addData(user_data){
                         }
                     },
                     ticks: {
-                        precision: 0
+                        precision: 0,
                     }
                 },
                 xAxes: {
@@ -277,6 +277,7 @@ function addData(user_data){
                     displayFormats: {
                         
                     },
+                    offset: true
                 },
             },
             interaction: {
@@ -312,23 +313,34 @@ function createListingClose(){
     $("#createListingPopup").addClass("hidden");
 }
 
+function round(num) {
+    //var m = Number((Math.abs(num) * 100).toPrecision(15));
+    //return Math.round(m) / 100 * Math.sign(num);
+
+    return Math.floor(num * 100) / 100;
+}
+
 //Update reciprical odds when user enters odds
 $(document).on('keyup mouseup', '#user_odds', function() {  
+    
     user_odds = $(this).val();
-    their_odds = (1/user_odds + 1).toFixed(2);
-    $('#their_odds').val(their_odds);  
+    
+    their_odds = round((1/(user_odds-1)+1));
+    $('#their_odds').val(their_odds); 
     
     //Change return amount
-    updateReturn();                                                                                                              
+    updateReturn();
+
 });
 
 $(document).on('keyup mouseup', '#their_odds', function() {  
     their_odds = $(this).val();
-    user_odds = (1/their_odds + 1).toFixed(2);
-    $('#user_odds').val(user_odds);  
+    
+    user_odds = round((1/(their_odds-1)+1));
+    $('#user_odds').val(user_odds); 
     
     //Change return amount
-    updateReturn();  
+    updateReturn();
 });
 
 $(document).on('keyup mouseup', '#amount', function() {  
@@ -340,12 +352,66 @@ function updateReturn(){
     //Change return amount
     current_amount = $("#amount").val();
     user_odds = $("#user_odds").val();
-    $('#return').html("Return: $" + current_amount * user_odds);   
+    user_return = (current_amount * user_odds).toFixed(2);
+
+    $('#return').html("Return: $" + user_return);  
 }
 
 
 //SET BEST ODDS FOR OPTION ON CHANGE
 $(document).on('input', '#pick_selector', function() {  
     best_odds = $('option:selected', this).attr('data-best_odds');
-    $("#best_odds").html("Current best odds offered: $" + best_odds);
+    best_odds_amount = $('option:selected', this).attr('data-best_odds_amount');
+    $("#best_odds").html("Current best odds offered: $" + best_odds + " ($" + best_odds_amount + " bet)");
 });
+
+
+//POST A LISTING
+function postListing(user_id){
+
+    //Perhaps use an alert to show uneditable details before submitting
+
+    //Get data for listing
+    let pick = $('option:selected', "#pick_selector").val();
+    let user_odds = $("#user_odds").val();
+    let their_odds = $("#their_odds").val();
+    let amount = $("#amount").val();
+    let event_id = $('option:selected', "#pick_selector").attr('data-event_id');
+    let listing_return = user_odds * amount;
+
+    //Format data for listing post
+    data = [
+        {
+            "user_id": user_id,
+            "option_id": pick,
+            "user_odds": user_odds,
+            "their_odds": their_odds,
+            "amount": amount,
+            "event_id": event_id,
+            "listing_return": listing_return,
+        }
+    ];
+
+
+    $.ajax({
+        type: "POST",
+        url: "/post_listing",
+        data: JSON.stringify(data),
+        contentType: "text/json; charset=utf-8",
+        dataType: "text",
+        success: function (msg) {
+            msg = JSON.parse(msg);
+            switch(msg['result']){
+                case 'success':
+                    window.location.replace("/event/" + msg['event_id']);
+                    break;
+                case 'failure':
+                    alert(msg['error']);
+                    break;
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('error');
+        }
+    });
+}
