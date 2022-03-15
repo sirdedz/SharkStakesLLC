@@ -1,12 +1,14 @@
 TODO:
 - Account page
-    - Redesign
-    - Add/withdraw balance
+    - Styling
     - Show current listings
+        - Show current listings which have been matched
     - Show past listings & result of it
     - Ability to remove current listings
     - Change password
-    - Edit details
+    - Edit account details
+
+- Add/Withdraw Balance Page
 
 - Index page
     - Date of Event
@@ -14,26 +16,27 @@ TODO:
 
 - Sports page
     - Categories of sports
+    - Request a new event/sport be added
 
 - Events page
     - Date of event countdown
-    - Handle time scale on graph (x-axis)
-    - Filter table by pick
     - Create a listing
-        - Upload to db
-        - Remove from user balance
         - Add T&C's
         - Add confirmation before listing
-        - Close the popup when clicking outside of div
 
     - Matching a bet on a listing
         - Listing moved to fulfilled
         - Balance removed from user balance
         - Confirmation before matching
 
-    *return amount needed for each listing to calculate how much the matching user needs to front
+    - Cancelling a listing
+        - Adding balance back to user
+        - Deleting record
 
-
+- Backend functionality for deciding an event's result and script for automatically paying out
+    - Add balance to winning user
+    - Add listings to listing history
+    - Notify the users in some way
 
 - Before launch
     - Check all auth

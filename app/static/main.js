@@ -167,31 +167,19 @@ function handleFeedback(data){
 }
 
 
-//RESULT.HTML
+//EVENT.HTML
 
 const labels = [];
 const dataPoints = [];
 
-function addData(user_data){
+function buildChart(user_data){
     json = JSON.parse(user_data);
 
     json = json[0];
 
     const data = {
-        labels: labels,
         datasets: [],
     };
-
-    for(var i in json){
-        for(var x = 1; x < json[i].length; x++){
-            if(!labels.includes(json[i][x]["time"])){
-                index = indexIntoSortedArray(labels, json[i][x]["time"]);
-                labels.splice(index, 0, json[i][x]["time"]);
-            }
-        }
-    }
-
-    //labels[labels.length] = "";
 
     for(var i in json){      
         
@@ -203,42 +191,75 @@ function addData(user_data){
         colour = 'rgb(' + r + ', ' + g + ', ' + b + ')';
 
         for(var x = 1; x < json[i].length; x++){
-            index = indexIntoSortedArray(labels, json[i][x]["time"]);
-            //labels.splice(index, 0, json[i][x]["time"]);
 
             odds = json[i][x]["odds"];
+            time = json[i][x]["time"];
+            entry = {x: time, y: odds};
 
-            dataPoints[i][index] = odds;
+            dataPoints[i].push(entry);
         }
-
 
         data["datasets"].push({
             label: json[i][0]["pick"] + " to win",
             backgroundColor: json[i][0]["colour"],
             borderColor: json[i][0]["colour"],
-            pointBorderColor: json[i][0]["accent"],
-            pointRadius: 0,
+            pointHoverBorderColor: json[i][0]["accent"],
+            pointRadius: 2,
             data: dataPoints[i],
-            spanGaps: true
+            spanGaps: true,
+            showLine: true,
         })
     }
 
-    function indexIntoSortedArray(array, value) {
-        var low = 0,
-            high = array.length;
-    
-        while (low < high) {
-            var mid = (low + high) >>> 1;
-            if (array[mid] < value) low = mid + 1;
-            else high = mid;
+    const verticalLinePlugin = {
+        getLinePosition: function (chart, pointIndex) {
+            const meta = chart.getDatasetMeta(0); // first dataset is used to discover X coordinate of a point
+            const data = meta.data;
+            return data[pointIndex]._model.x;
+        },
+        renderVerticalLine: function (chartInstance, pointIndex) {
+            const lineLeftOffset = this.getLinePosition(chartInstance, pointIndex);
+            const scale = chartInstance.scales['y-axis-0'];
+            const context = chartInstance.chart.ctx;
+      
+            // render vertical line
+            context.beginPath();
+            context.strokeStyle = '#ff0000';
+            context.moveTo(lineLeftOffset, scale.top);
+            context.lineTo(lineLeftOffset, scale.bottom);
+            context.stroke();
+      
+            // write label
+            context.fillStyle = "#ff0000";
+            context.textAlign = 'center';
+            context.fillText('MY TEXT', lineLeftOffset, (scale.bottom - scale.top) / 2 + scale.top);
+        },
+      
+        afterDatasetsDraw: function (chart, easing) {
+            if (chart.config.lineAtIndex) {
+                chart.config.lineAtIndex.forEach(pointIndex => this.renderVerticalLine(chart, pointIndex));
+            }
         }
-        return low;
-    }
+    };
 
+    //CUSTOM TOOLTIP TO SEND TOOLTIP TO TOP RIGHT OF CHART
+    Chart.Tooltip.positioners.customTooltip = function(elements, eventPosition){
+        var tooltip = this;
+
+        return {
+            x: myChart.chartArea.right,
+            y: myChart.chartArea.top + 40,
+        };
+    };
+
+
+    //CHART CONFIGURATION
     const config = {
         type: 'line',
         data,
         options: {
+            animation:{
+            },
             plugins: {
                 title: {
                     display: false,
@@ -247,7 +268,64 @@ function addData(user_data){
                 subtitle: {
                     display: true,
                     text: 'Your best odds if you bet: '
-                }
+                },
+                tooltip: {
+                    enabled: true,
+                    xAlign: 'right',
+                    usePointStyle: false,
+                    boxPadding: 5,
+                    cornerRadius: 5,
+                    caretPadding: 5,
+                    caretSize: 0,
+                    backgroundColor: "rgba(0, 0, 0, 0.7)",
+                    position: 'customTooltip',
+                },
+                annotation: {
+                    annotations: {
+                        line1: {
+                            drawTime: 'afterDraw',
+                            type: "line",
+                            mode: "vertical",
+                            scaleID: "xAxes",
+                            borderColor: "rgba(0, 0, 0, 0.3",
+                            borderWidth: 1,
+                            value: dataPoints[1][10]['x'],
+                            label: {
+                                content: "TODAY",
+                                enabled: false,
+                                position: "top",
+                            }
+                        }
+                    }
+                },
+                zoom: {
+                    pan: {
+                        enabled: true,
+                        mode: 'xy',
+                        modifierKey: 'ctrl',
+                        overScaleMode: 'xy',
+                    },
+                    limits: {
+                        y: {min: 0, max: 'original'},
+                        x: {min: 'original', max: 'original'},
+                    },
+                    zoom: {
+                        mode: 'xy',
+                        overScaleMode: 'xy',
+                        wheel: {
+                            enabled: false,
+                        },
+                        drag: {
+                            enabled: true,
+                            backgroundColor: 'rgba(0, 0, 0, 0.3)',
+                            speed: 0.2,
+                            threshold: 100,
+                        },
+                        pinch: {
+                            enabled: true,
+                        },
+                    },
+                },
             },
             responsive: true,
             scales: {
@@ -261,9 +339,16 @@ function addData(user_data){
                     },
                     ticks: {
                         precision: 0,
-                    }
+                    },
+                    grid: {
+                        display: true,
+                    },
                 },
                 xAxes: {
+                    type: 'time',
+                    time: {
+                        tooltipFormat: 'MMM d p',
+                    },
                     title: {
                         display: true,
                         text: "Time",
@@ -273,32 +358,73 @@ function addData(user_data){
                     },
                     ticks: {
                         precision: 0,
+                        maxTicksLimit: 5,
+                        maxRotation: 0,
+                        autoSkip: false,
                     },
                     displayFormats: {
                         
                     },
-                    offset: true
+                    offset: true,
+                    grid: {
+                        display: true,
+                        drawTicks: false,
+                    },
                 },
             },
             interaction: {
                 intersect: false,
-                mode: "index",
-            }
+                mode: "nearest",
+                axis: "x",
+            },
+            events: [
+                'mousemove', 'click'
+            ],
+            onHover: (e, activeEls) => {
+                let datasetIndex = activeEls[0].datasetIndex;
+                let dataIndex = activeEls[0].index;
+                let datasetLabel = e.chart.data.datasets[datasetIndex].label;
+                let value = e.chart.data.datasets[datasetIndex].data[dataIndex];                
+                let x = value['x'];
+                
+                myChart.config.options.plugins.annotation.annotations.line1.value = x;
+                myChart.config.options.animation.duration = 0;
+                myChart.update();
+            },
         }
     };
 
     var myChart = new Chart(
         document.getElementById("eventChart").getContext("2d"),
         config
-      );
+    );
 }
 
 function drawResults(event_id){
     if($("#eventChart").length > 0 ){
         path = `${location.origin}/get_event_json/` + event_id;
-        $.get(path, addData);
+        $.get(path, buildChart);
     }
 }
+
+//FILTER TABLE BY PICK
+$(document).on('input', '#tablePickFilter', function() {  
+    $("#eventTable tbody tr").hide(); //hide all rows
+    var refine = $(this).val(); //retrieve wanted status
+    var regex = new RegExp(refine);
+
+    if(refine=="All") {
+        $("#eventTable tbody tr").show(); //show all rows if want to see All
+    } else {
+
+        $("#eventTable tbody tr").each(function() { //loop over each row
+             if($(this).find("td:eq(2)").text().match(regex)) { //check value of TD
+                 $(this).show(); //show the row 
+             }
+        });
+
+    }
+});
 
 
 //CREATE A LISTING POPUP
@@ -312,6 +438,15 @@ function createListing(event_id){
 function createListingClose(){
     $("#createListingPopup").addClass("hidden");
 }
+
+$(document).mouseup(function(e) {
+    var container = $("#createListingPopup");
+
+    // if the target of the click isn't the container nor a descendant of the container
+    if (!container.is(e.target) && container.has(e.target).length === 0 && !container.hasClass('hidden')){
+        createListingClose();
+    }
+});
 
 function round(num) {
     //var m = Number((Math.abs(num) * 100).toPrecision(15));

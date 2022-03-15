@@ -47,6 +47,10 @@ body{
     cursor: pointer;
 }
 
+.header-user:hover .header-user-element {
+    color: var(--green1);
+}
+
 .header img:hover{
     cursor: pointer;
 }
@@ -302,7 +306,20 @@ table td{
     box-shadow: rgba(0, 0, 0, 0.35) 2px 2px 20px 0px;
 }
 
+#pickFilter{
+    width: 85vw;
+    margin: 0 auto;
+    text-align: left;
+    padding-left: 1em;
+    margin-bottom: 10px;
+}
 
+#pickFilter select{
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
+    padding: 2px;
+    border: none;
+}
 
 
 .deconstructed {

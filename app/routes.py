@@ -153,14 +153,20 @@ def get_event_json(event_id):
         #options_dict[option.id + len(options)] = [{"pick": "Cavs your odds", "colour": "grey", "accent": option.accentColour}]
     
     #get all listings for the event CHANGE ORDERBY TO DATETIME
-    listings = Listing.query.filter(Listing.event_id==event_id).order_by(Listing.id.asc()).all()
+    listings = Listing.query.filter(Listing.event_id==event_id).order_by(Listing.datetime.asc()).all()
 
     if len(listings) > 0:
         for listing in listings:
             index = listing.option_id + len(options)
             recip_odds = (1/listing.odds)+1
 
-            options_dict[listing.option_id].append({"odds": listing.odds, "time": listing.time})
+            #indexed to the other option as to show on graph from matching user's perspective
+            if listing.option_id == 1:
+                index = 2
+            elif listing.option_id == 2:
+                index = 1
+
+            options_dict[index].append({"odds": listing.odds, "time": listing.datetime})
             #options_dict[index].append({"odds": recip_odds, "time": listing.time})
 
         final.append(options_dict)

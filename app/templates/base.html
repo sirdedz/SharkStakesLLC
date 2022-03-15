@@ -25,7 +25,11 @@
         <!-- JAVASCRIPT -->
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="{{ url_for('static', filename='main.js') }}"></script>
-
+        <script src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/1.4.0/chartjs-plugin-annotation.min.js" integrity="sha512-HrwQrg8S/xLPE6Qwe7XOghA/FOxX+tuVF4TxbvS73/zKJSs/b1gVl/P4MsdfTFWYFYg/ISVNYIINcg35Xvr6QQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-zoom/1.2.0/chartjs-plugin-zoom.min.js" integrity="sha512-TT0wAMqqtjXVzpc48sI0G84rBP+oTkBZPgeRYIOVRGUdwJsyS3WPipsNh///ay2LJ+onCM23tipnz6EvEy2/UA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        
         <!-- SORTABLE TABLES JS -->
         <script src="{{ url_for('static', filename='sorttable.js') }}"></script>
 
@@ -62,8 +66,10 @@
                             <i class="bi bi-plus-circle-fill"></i>
                         </span>
                     </div>
-                    <p><a href={{ url_for('user') }}>{{current_user.username}}</a></p>
-                    <a href={{ url_for('user') }}> <i class="bi bi-person-circle"></i></a>
+                    <div class="header-user">
+                        <p class="header-user-element"><a href={{ url_for('user') }}>{{current_user.username}}</a></p>
+                        <a href={{ url_for('user') }}> <i class="bi bi-person-circle header-user-element"></i></a>
+                    </div>
                 </div>
             {% endif %}
         </div>

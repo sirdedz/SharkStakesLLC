@@ -25,6 +25,19 @@
         <canvas id="eventChart" style="height: 200px;"></canvas>
     </div>
 
+
+    <p id="pickFilter">
+        Filter by your pick:
+        <select id="tablePickFilter">
+            <option value="All">All</option>
+            {% for option in options %}
+
+                <option value="{{ option.pick }}">{{ option.pick }}</option>
+
+            {% endfor %}
+        </select>
+    </p>
+
     <button id="createListing" onclick="createListing({{event.id}})">
         Create A Listing
     </button>
@@ -33,19 +46,6 @@
         <div id="createListingClose" onclick="createListingClose()">
             X
         </div>
-        <!--
-            Info needed:
-            - Event
-            - Selected option/outcome
-            - Selected Odds
-            - Odds this will be listed as for the other person
-            - Current best odds
-            - Return if the bet is successful
-            - DateTime
-            - User ID
-            - Users current balance
-            - T&C's
-        -->
         <table>
             <tbody>
                 <tr>
