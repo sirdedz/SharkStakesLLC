@@ -418,7 +418,7 @@ $(document).on('input', '#tablePickFilter', function() {
     } else {
 
         $("#eventTable tbody tr").each(function() { //loop over each row
-             if($(this).find("td:eq(2)").text().match(regex)) { //check value of TD
+             if($(this).find(".yourPick").text().match(regex)) { //check value of TD
                  $(this).show(); //show the row 
              }
         });
@@ -426,6 +426,12 @@ $(document).on('input', '#tablePickFilter', function() {
     }
 });
 
+//Sort  by default
+$(document).ready(function(){
+    $("#yourOdds").each(function(){
+      sorttable.innerSortFunction.apply(this, []);
+    })
+})
 
 //CREATE A LISTING POPUP
 function createListing(event_id){

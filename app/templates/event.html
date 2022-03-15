@@ -134,7 +134,7 @@
             <th scope="col">User</th>
             <th scope="col">Their Pick</th>
             <th scope="col">Your Pick</th>
-            <th scope="col">Your Odds</th>
+            <th scope="col" id="yourOdds">Your Odds</th>
             <th scope="col">You Bet</th>
             <th scope="col">Return</th>
             <th scope="col">DateTime</th>
@@ -150,7 +150,7 @@
             <tr>
                 <td>{{ listing.username }}</td>
                 <td>{{listing.option}}</td>
-                <td>
+                <td class="yourPick">
                     {% set first = 'True' %}
                     {% for option in listing.other_options %}
 
