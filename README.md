@@ -1,19 +1,17 @@
 # sharkstakesllc
 
-# Overview:
-This is a git repository for a web application which allows users to quiz themselves on any information, but most notably sports trivia.
+# Overview: STILL IN EARLY DEVELOPMENT STAGES
+This is a git repository for a web application in development for open-market event betting where users can create listings with their own stakes and odds, and other users are able to match these listings to create a bet.
 
-Note:
-The admin account is simply the user with 'admin' as their username (every username is unique)
 
 The structure of the web app is as follows:
- - The home page (index) allows users to choose a quiz which they want to take, or create a new quiz. It also allows the admin to delete quizzes.
- - If a user chooses to create a quiz they are then redirected to a page which allows them to create questions for the quiz they just created.
- - From the home page a user is able to navigate to the login page where they can either login or be redirected to the registration page, where they can register an account.
- - Once a user has navigated to a quiz page they are able to complete the questions and submit it for marking, where they will receive feedback and their results will be submitted.
- - A user can also navigate to the results page where they are able to see the results of all the quizzes they have completed.
- - A user can also navigate to the stats page where they are able to see some statistics which cover the whole playerbase of the web app.
- - Finally, a user can navigate to their user page to view their account details.
+ - The home page (index) shows upcoming events and allows users to navigate to specific events' page
+ - The event page shows all listings for a specific event, including a line graph which shows the odds listed over time for each outcome (the reciprical to show the user's available odds to match an existing listing)
+    - The user is able to sort the listings by any of the available metrics, and by outcome seperately
+ - The Login/Registration page allows the user to login to an existing account, or register and create an account
+ - The User page allows the user to see their details, as well as any existing listings, matches yet to be resulted and previous resulted bets
+ - The sports page will feature categories of events to navigate and find specific events
+ - Payment system currently uses the Blockonomics API to verify BTC payments have been processed (STILL UNDER CONSTRUCTION)
 
 
  Architecture:
@@ -23,6 +21,7 @@ The structure of the web app is as follows:
  - JavaScript and JQuery for client side scripts
  - SQLAlchemy to interact with an SQLite3 database
  - CSS to style the pages
+ - Blockonimcs API for BTC payments
 
  External Libraries Used:
  - Bootstrap: https://getbootstrap.com/
@@ -35,6 +34,8 @@ The structure of the web app is as follows:
 
  - Chart.js:https://www.chartjs.org
     - JS: https://cdn.jsdelivr.net/npm/chart.js
+
+- Sorttable
 
 
 
@@ -54,14 +55,9 @@ The structure of the web app is as follows:
     - run 'quit()'
 4. start the application by running the following in a command prompt:
     - run 'flask run'
-5. to insert sample data once the web application is running:
-    - navigate to the login page (top right corner) and click 'register'
-    - register an account with username 'admin'
-    - navigate back to the user page by clicking the user icon in the top right and login with your admin account
-    - scroll down and click on 'Populate Database'
-        - This will provide some quizzes as well as mock results for the admin account
 
-# Testing:
+
+# Testing: (STILL UNDER CONSTRUCTION)
 To run the database test cases simply run the following in a command prompt:
 - run 'python3 db_test.py'
 
