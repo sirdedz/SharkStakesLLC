@@ -1,5 +1,5 @@
 from app import db
-from app.models import User, Result, Event, Option, Listing
+from app.models import User, Event, Option, Listing, Match, History
 from datetime import datetime, timedelta
 import random
 import math
@@ -29,8 +29,8 @@ def run():
         i = random.randint(10, 2000)
         date = start_date + timedelta(0, i)
         start_date = date
-
-        new_listing = Listing(event_id=1, user_id=1, odds=odds, listers_odds=calculated_their_odds,amount=amount, option_id=option_id, time=a, user_return=odds*amount, datetime=date)
+    
+        new_listing = Listing(event_id=1, user_id=1, odds=odds, listers_odds=calculated_their_odds,amount=amount, option_id=option_id, user_return=listers_odds*amount, datetime=date)
         #new_listing_reciprical = Listing(event_id=1, user_id=1, odds=(1/odds+1), amount=amount, option_id=option_id_reciprical, time=a)
 
         db.session.add(new_listing)
@@ -49,7 +49,7 @@ def run():
         date = start_date + timedelta(0, i)
         start_date = date
 
-        new_listing = Listing(event_id=1, user_id=1, odds=odds, listers_odds=calculated_their_odds, amount=amount, option_id=option_id, time=a, user_return=odds*amount, datetime=date)
+        new_listing = Listing(event_id=1, user_id=1, odds=odds, listers_odds=calculated_their_odds, amount=amount, option_id=option_id, user_return=listers_odds*amount, datetime=date)
 
         db.session.add(new_listing)
         db.session.commit()

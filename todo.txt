@@ -42,6 +42,18 @@ TODO:
     - Check all auth
     - Add bootstrap, chartjs, jquery libraries to local dir
 
+- Long term fixes
+    - How the label is sent from controller to js (e.g. sending 'cavs' for warriors picks)
+        - More complex for events with > 2 outcomes (excluding ties)
+
+
+- Payments
+    - Add charge details (ID, amount, user, status etc) to database
+    - Webhooks for gathering payment status
+        - Add balance to user upon confirmation Webhooks
+
+    - Add refund ability for withdrawal
+
 
 
 

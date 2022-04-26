@@ -259,6 +259,7 @@ function buildChart(user_data){
         data,
         options: {
             animation:{
+                easing: 'linear',
             },
             plugins: {
                 title: {
@@ -388,7 +389,7 @@ function buildChart(user_data){
                 let x = value['x'];
                 
                 myChart.config.options.plugins.annotation.annotations.line1.value = x;
-                myChart.config.options.animation.duration = 0;
+                myChart.config.options.animation.duration = 50;
                 myChart.update();
             },
         }
@@ -445,6 +446,7 @@ function createListingClose(){
     $("#createListingPopup").addClass("hidden");
 }
 
+//Close popup when clicking off
 $(document).mouseup(function(e) {
     var container = $("#createListingPopup");
 
@@ -555,4 +557,85 @@ function postListing(user_id){
             alert('error');
         }
     });
+}
+
+//MATCH A LISTING
+
+//Match confirmation popup
+function matchPopup(listing){
+    //Data available: id, option, odds, amount, username, daymonth, other_options, user_return, match_amount, user_id
+
+    //Populate popup data
+    bet_amount = listing.user_return - listing.amount
+    text = "Bet <b>$" + bet_amount + "</b> on <b>" + listing.pick + " @ $" + listing.odds + "</b> odds, against <b>" + listing.username + "</b>.<br>Expected return: <b>$" + listing.user_return + "</b>.<br>" + "Event start time: <b>" + listing.daymonth + "</b>.";
+
+    $("#matchPopup p").html(text);
+    $("#matchConfirm").attr('data-listing_id', listing.id);
+
+    //Make popup visible
+    $("#matchPopup").toggleClass('hidden');
+}
+
+//Close popup when clicking off
+$(document).mouseup(function(e) {
+    var container = $("#matchPopup");
+
+    // if the target of the click isn't the container nor a descendant of the container
+    if (!container.is(e.target) && container.has(e.target).length === 0 && !container.hasClass('hidden')){
+        if(!$("#matchPopup").hasClass('hidden')){
+            $("#matchPopup").toggleClass('hidden');
+        }
+    }
+});
+
+//Hide popup on cancel
+function cancelMatching(){
+    //Make popup invisible
+    if(!$("#matchPopup").hasClass('hidden')){
+        $("#matchPopup").toggleClass('hidden');
+    }
+}
+
+function matchListing(user_id){
+
+    //Format data for listing post
+    let listing_id = $("#matchConfirm").attr('data-listing_id');
+    data = [
+        {
+            'listing_id': listing_id,
+            'user_id': user_id,
+        }
+    ];
+
+    //Make request
+    $.ajax({
+        type: "POST",
+        url: "/match_listing",
+        data: JSON.stringify(data),
+        contentType: "text/json; charset=utf-8",
+        dataType: "text",
+        success: function (msg) {
+            msg = JSON.parse(msg);
+            switch(msg['result']){
+                case 'success':
+                    window.location.replace("/user");
+                    break;
+                case 'failure':
+                    alert(msg['error']);
+                    break;
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('error');
+        }
+    });
+
+}
+
+
+// BANK PAGE ---------------------------------------
+function deposit(){
+    amount = $("#deposit_amount").val();
+
+    window.location.replace("/deposit?amount="+ amount);
 }

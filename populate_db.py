@@ -1,5 +1,5 @@
 from app import db
-from app.models import User, Result, Event, Option, Listing
+from app.models import User, Event, Option, Listing, Match, History
 from datetime import datetime, timedelta
 import random
 from random import randrange

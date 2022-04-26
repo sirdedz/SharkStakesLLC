@@ -5,7 +5,7 @@ from app import forms, models, db, app
 from flask import render_template, flash, redirect, request, url_for
 from werkzeug.urls import url_parse
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import User, Event, Option, Result, Listing
+from app.models import User, Event, Option, Listing, Match, History
 
 from sqlalchemy import func, desc
 from dateutil import parser
@@ -112,20 +112,8 @@ class QuizController():
 
         return redirect(url_for('create_question', quiz_title=quiz_title))
 
-#controller class for generating results template
-class ResultController():
-    def generate():
-        results = Result.query.filter(Result.user_id==current_user.id).all()
 
-        return render_template('results.html', title="Results", results=results)
-
-
-class StatsController():
-    def get():
-
-        results = Result.query.all()
-
-#intitialize results for specific user
+'''#intitialize results for specific user
         class Results():
             def __init__(self, avg, your_avg, pop_quiz, times_played, country, users, avg_age):
                 self.avg = avg
@@ -197,3 +185,4 @@ class StatsController():
 
 
         return render_template('stats.html', title="Global Statistics", results="None")
+        '''

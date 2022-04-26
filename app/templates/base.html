@@ -45,10 +45,10 @@
         <div class="header">
             <div class="header-left">
                 <img src="{{ url_for('static', filename='assets/logo1.png') }}" alt="Shark Stakes LLC" onclick="toHome()">
-                <p onclick="toHome()">Events</p>
+                <p><a href={{ url_for('index') }}></a>Your Events</a></p>
                 <p><a href={{ url_for('index') }}></a>Sports</a></p>
                 <p><a href={{ url_for('results') }}>Results</a></p>
-                <p><a href={{ url_for('about') }}>About</a></p>
+                <p><a href={{ url_for('about') }}>How It Works</a></p>
             </div>
             <div class="header-middle">
 
@@ -60,12 +60,14 @@
                 </div>
             {% else %}
                 <div class="header-right">
-                    <div id="balance">
-                        <span>
-                            <div>${{current_user.balance}}</div>
-                            <i class="bi bi-plus-circle-fill"></i>
-                        </span>
-                    </div>
+                    <a href={{ url_for('bank') }}>
+                        <div id="balance">
+                            <span>
+                                <div>${{current_user.balance}}</div>
+                                <i class="bi bi-plus-circle-fill"></i>
+                            </span>
+                        </div>
+                    </a>
                     <div class="header-user">
                         <p class="header-user-element"><a href={{ url_for('user') }}>{{current_user.username}}</a></p>
                         <a href={{ url_for('user') }}> <i class="bi bi-person-circle header-user-element"></i></a>

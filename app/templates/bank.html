@@ -1,0 +1,17 @@
+<!-- page for user to view payment details and add balance -->
+
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="bank-main">
+        <h1>Current Balance: ${{current_user.balance}}</h1>
+
+        <div>
+            <p>Add funds: (USD) $<input type="number" id="deposit_amount" min="1"></input></p>
+            <a onclick="deposit()">
+                <p>DEPOSIT</p>
+            </a>
+        </div>
+    </div>
+{% endblock %}

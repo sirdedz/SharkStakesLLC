@@ -3,25 +3,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <!-- <div class="user-main">
-        <h2>Welcome back, {{ current_user.username }}</h2>
-        <h6>User Details:</h6>
-        <p>First name: {{ current_user.firstname }}</p>
-        <p>Surname: {{ current_user.surname }}</p>
-        <p>Date of Birth: {{ current_user.dob }}</p>
-        <p>Address: {{ current_user.address }}</p>
-        <p>Country: {{ current_user.country }}</p>
-        <p>State: {{ current_user.state }}</p>
-        <p>Postcode: {{ current_user.postcode }}</p>
-        <p>Phone: {{ current_user.phone }}</p>
-        <p>Email: {{current_user.email }}</p>
-        <p><a href={{ url_for('logout') }}>Logout</a></p>
-    </div>
 
+    <!--
     {% if current_user.username == 'admin' %}
         <p><a href={{ url_for('populate') }}>Populate Database</a></p>
-    {% endif %} -->
-
+    {% endif %}
+    -->
 
     <div class="user-main">
         <div id="user-image">
@@ -39,31 +26,79 @@
         </div>
         <div id="user-listings">
             <h5>YOUR CURRENT LISTINGS</h5>
-            <table>
+            <table class="sortable listingTable">
                 <thead>
                     <tr>
-                        <th></th>
+                        <th>Event</th>
+                        <th>Your Pick</th>
+                        <th>Your Odds</th>
+                        <th>Their Odds</th>
+                        <th>You Bet</th>
+                        <th>Return</th>
+                        <th>Date</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td></td>
-                    </tr>
+                    {% if listings is defined and listings|length > 0 %}
+                        {% for listing in listings %}
+
+                            <tr>
+                                <td>{{listing.event}}</td>
+                                <td>{{listing.pick}}</td>
+                                <td>{{listing.listers_odds}}</td>
+                                <td>{{listing.odds}}</td>
+                                <td>{{listing.amount}}</td>
+                                <td>{{'%.02f' | format(listing.user_return | float)}}</td>
+                                <td>{{listing.daymonth}}</td>
+                                <td><a href="#">DEL</a></td>
+                            </tr>
+
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="100%">No listings found.</td>
+                        </tr>
+                    {% endif %}
                 </tbody>
             </table>
         </div>
         <div id="user-history">
-            <h5>YOUR LISTING HISTORY</h5>
-            <table>
+            <h5>YOUR BET HISTORY</h5>
+            <table class="sortable listingTable">
                 <thead>
                     <tr>
-                        <th></th>
+                        <th>Event</th>
+                        <th>Your Pick</th>
+                        <th>Your Odds</th>
+                        <th>Their Odds</th>
+                        <th>You Bet</th>
+                        <th>Return</th>
+                        <th>Date</th>
+                        <th>Result</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td></td>
-                    </tr>
+                    {% if histories is defined and histories|length > 0 %}
+                        {% for listing in listings %}
+
+                            <tr>
+                                <td>{{listing.event}}</td>
+                                <td>{{listing.pick}}</td>
+                                <td>{{listing.listers_odds}}</td>
+                                <td>{{listing.odds}}</td>
+                                <td>{{listing.amount}}</td>
+                                <td>{{'%.02f' | format(listing.user_return | float)}}</td>
+                                <td>{{listing.daymonth}}</td>
+                                <td><a href="#">DEL</a></td>
+                            </tr>
+
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="100%">No listings found.</td>
+                        </tr>
+                    {% endif %}
                 </tbody>
             </table>
         </div>

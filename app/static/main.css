@@ -47,7 +47,7 @@ body{
     cursor: pointer;
 }
 
-.header-user:hover .header-user-element {
+.header-user:hover * {
     color: var(--green1);
 }
 
@@ -78,11 +78,6 @@ body{
     padding-left: 0;
     display: flex;
     align-items: center;
-}
-
-.header-right i:hover{
-    cursor: pointer;
-    color: var(--green1);
 }
 
 #balance{
@@ -183,6 +178,9 @@ button{
     font-size: 1.5em;
 }
 
+/*------------------- TABLES --------------------*/
+
+
 table{
     border: 1px solid var(--grey1);
     width: 85%;
@@ -195,12 +193,79 @@ table thead{
     color: white;
 }
 
+table thead tr:first-of-type{
+    border-radius: 10px 10px 0 0;
+}
+
+table thead tr:first-of-type th:first-of-type{
+    border-radius: 10px 0 0 0;
+}
+
+table thead tr:first-of-type th:last-of-type{
+    border-radius: 0 10px 0 0;
+}
+
+table thead tr:first-of-type th:only-child{
+    border-radius: 10px 10px 0 0;
+}
+
 table td{
     border-left: 1px solid var(--grey1);
     border-right: 1px solid var(--grey1);
     padding-top: 0.5em;
     padding-bottom: 0.5em;
 }
+
+.listingTable th:hover{
+    cursor: pointer;
+}
+
+.listingTable th{
+    font-style: italic;
+    font-weight: normal;
+}
+
+.listingTable{
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    width: 85vw;
+}
+/*------------------- POPUPS --------------------*/
+
+.popup{
+    width: 70vw;
+    background-color: white;
+    border: 3px solid var(--navy1);
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 20px 20px 20px 0px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: scroll;
+}
+
+.popupClose{
+    padding: 0.5em;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-weight: bold;
+    width: 3em;
+    height: 3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+}
+
+.popupClose:hover{
+    cursor: pointer;
+    background-color: var(--grey1);
+}
+
+
 /*------------------- LOGIN.HTML --------------------*/
 
 .form {
@@ -277,24 +342,8 @@ table td{
     padding: 1em 0;
 }
 
-#eventTable th:hover{
-    cursor: pointer;
-}
-
-#eventTable th{
-    font-style: italic;
-    font-weight: normal;
-}
-
-#eventTable{
-    border-top: none;
-    border-right: none;
-    border-left: none;
-    width: 85vw;
-}
-
 #createListing{
-    width: 85vw;
+    width: 100%;
     font-weight: bold;
     border-radius: 10px 10px 0 0;
     box-shadow: rgba(0, 0, 0, 0.35) 2px -2px 20px 0px inset;
@@ -334,9 +383,9 @@ table td{
     letter-spacing: -0.02em;
     line-height: 1.03em;
     z-index: -999;
-  }
+}
   
-  .deconstructed > div {
+.deconstructed > div {
     position: absolute;
     top: 0;
     left: 0;
@@ -344,78 +393,59 @@ table td{
     bottom: 0;
     color: var(--grey1);
     pointer-events: none;
-  }
+}
   
-  .deconstructed > div:nth-child(1) {
+.deconstructed > div:nth-child(1) {
     -webkit-mask-image: linear-gradient(black 50%, transparent 50%);
     mask-image: linear-gradient(black 50%, transparent 50%);
     animation: deconstructed1 10s infinite;
-  }
+}
   
-  .deconstructed > div:nth-child(2) {
+.deconstructed > div:nth-child(2) {
     -webkit-mask-image: linear-gradient(transparent 50%, black 50%);
     mask-image: linear-gradient(transparent 50%, black 50%);
     animation: deconstructed2 10s infinite;
-  }
+}
   
-  
-  @keyframes deconstructed1 {
+
+@keyframes deconstructed1 {
     0% {
-      transform: translateX(1%);
+        transform: translateX(1%);
     }
     45% {
         transform: translateX(-0.9%);
-      }
+        }
     50% {
-      transform: translateX(-1%);
+        transform: translateX(-1%);
     }
     95% {
         transform: translateX(0.9%);
-      }
+        }
     100% {
-      transform: translateX(1%);
+        transform: translateX(1%);
     }
-  }
+}
   
-  @keyframes deconstructed2 {
+@keyframes deconstructed2 {
     0% {
-      transform: translateX(-1%);
+        transform: translateX(-1%);
     }
     45% {
         transform: translateX(0.9%);
-      }
+        }
     50% {
-      transform: translateX(1%);
+        transform: translateX(1%);
     }
     95% {
         transform: translateX(-0.9%);
-      }
+        }
     100% {
-      transform: translateX(-1%);
+        transform: translateX(-1%);
     }
-  }
-
-
-#createListingPopup{
-    width: 70vw;
-    background-color: white;
-    border: 3px solid var(--navy1);
-    border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.35) 20px 20px 20px 0px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    max-height: 75vh;
-    overflow: scroll;
 }
 
 #createListingPopup table{
     width: 100%;
-}
-
-#createListingPopup table tr{
-
 }
 
 #createListingPopup table tr td{
@@ -446,24 +476,6 @@ table td{
     border-radius: 2px;
 }
 
-#createListingClose{
-    padding: 0.5em;
-    position: absolute;
-    top: 0;
-    right: 0;
-    font-weight: bold;
-    width: 3em;
-    height: 3em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 5px;
-}
-
-#createListingClose:hover{
-    cursor: pointer;
-    background-color: var(--grey1);
-}
 
 #event_options{
     display: flex;
@@ -476,6 +488,40 @@ table td{
 
 #event_options *{
     flex-grow: 1;
+}
+
+
+#matchPopup{
+    text-align: center;
+    width: auto;
+    padding: 1em;
+}
+
+#matchPopup h6{
+    font-weight: bold;
+}
+
+#matchPopup h12{
+    color: var(--grey2);
+}
+
+#matchPopup p{
+    text-align: left;
+}
+
+#matchPopup div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+#matchPopup input[type="submit"]{
+    margin-top: 1em;
+    width: 45%;
+    padding: 10px 0;
+    border: none;
+    background-color: var(--grey1);
+    border-radius: 2px;
 }
 
 /*------------------- USER.HTML --------------------*/
@@ -542,4 +588,41 @@ table td{
 
 #user-history table{
     min-height: 30vh;
+}
+
+/*------------------- BANK.HTML --------------------*/
+.bank-main{
+    padding-top: 30px;
+}
+
+.bank-main div{
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    align-items: center;
+    justify-content: space-around;
+    height: 30vh;
+}
+
+.bank-main input{
+    padding: 10px;
+}
+
+.bank-main a{
+    background-color: var(--navy1);
+    padding: 1em;
+    border-radius: 15px;
+    width: 40%;
+    color: white;
+}
+
+.bank-main a p{
+    color: white;
+    padding: 0;
+    margin: 0;
+}
+
+.bank-main a:hover{
+    box-shadow: rgba(0, 0, 0, 0.35) 2px 2px 20px 0px;
+    color: white;
 }

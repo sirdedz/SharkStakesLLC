@@ -1,16 +1,18 @@
 from app import app, db, models, forms
 from flask import render_template, flash, redirect, url_for, request, session
 from flask_login import current_user, login_user, logout_user, login_required
-from app.controllers import UserController, QuizController, ResultController, StatsController
+from app.controllers import UserController, QuizController
 from werkzeug.urls import url_parse
 from werkzeug.datastructures import ImmutableMultiDict
 
-from app.models import User, Event, Option, Result, Listing
+from app.models import User, Event, Option, Listing, Match, History
 from datetime import datetime
 import time
 import json
 import math
 import populate_db
+
+import requests
 
 @app.route('/')
 @app.route('/index')
@@ -115,16 +117,20 @@ def event(event_id):
         username = user.username
 
         option = Option.query.filter(Option.id==listing.option_id).first()
-        other_options = Option.query.filter(Option.event_id==event.id).filter(Option.id!=listing.option_id).all()
-
         option_title = option.pick
+        alt_options = Option.query.filter(Option.event_id==event.id).filter(Option.id!=listing.option_id).all()
+        other_options = []
+        
+        for option in alt_options:
+            other_options.append(option.pick)
+
         listing_id = listing.id
         odds = listing.odds
         amount = listing.amount
         daymonth = str(listing.datetime.day) + '/' + str(listing.datetime.month) + " " + str(listing.datetime.hour) + ":" + str(listing.datetime.minute).zfill(2)
         match_amount = math.floor((listing.user_return-listing.amount) * 100) / 100
 
-        new_listing = {"id": listing_id, "option": option_title, "odds": odds, "amount": amount, "username": username, "daymonth": daymonth, "other_options": other_options, "user_return": listing.user_return, "match_amount": match_amount}
+        new_listing = {"id": listing_id, "pick": option_title, "odds": odds, "amount": amount, "username": username, "daymonth": daymonth, "other_options": other_options, "user_return": listing.user_return, "match_amount": match_amount, "user_id": listing.user_id}
 
         listings_final.append(new_listing)
 
@@ -180,7 +186,6 @@ def post_listing():
     jsonData = request.get_json(force=True)
 
     #Get specific data
-    print(jsonData)
     event_id = int(jsonData[0]["event_id"])
     user_id = int(jsonData[0]["user_id"])
     option_id = int(jsonData[0]["option_id"])
@@ -192,6 +197,13 @@ def post_listing():
     msg = {
         'event_id': event_id,
     }
+
+    #Check all data is present
+    if 'event_id' not in jsonData[0] or 'user_id' not in jsonData[0] or 'option_id' not in jsonData[0] or 'user_odds' not in jsonData[0] or 'their_odds' not in jsonData[0] or 'amount' not in jsonData[0] or 'listing_return' not in jsonData[0]:
+        msg['result'] = 'failure'
+        msg['error'] = "Internal Server Error."
+
+        return msg
 
     #Check if user_id is the same as the user logged in
     if not current_user.id == user_id:
@@ -237,20 +249,170 @@ def post_listing():
 
     return msg
 
+@app.route('/match_listing', methods=['POST'])
+@login_required
+def match_listing():
+    jsonData = request.get_json(force=True)
+
+    #Get specific data
+    listing_id = int(jsonData[0]['listing_id'])
+    user_id = int(jsonData[0]['user_id'])
+
+    msg = {
+    }
+
+    #Check that the message was received
+    if not isinstance(listing_id, int) or not isinstance(user_id, int) or 'user_id' not in jsonData[0] or 'listing_id' not in jsonData[0]:
+        msg['result'] = 'failure'
+        msg['error'] = "Internal Error"
+
+        return msg
+
+    #Check if user_id is the same as the user logged in
+    if not current_user.id == user_id:
+        msg['result'] = 'failure'
+        msg['error'] = "User ID's dont match!"
+
+        return msg
+
+    #Check the listing still exists
+    listing = Listing.query.filter(Listing.id==listing_id).first()
+    if listing.matched:
+        msg['result'] = 'failure'
+        msg['error'] = "Listing already matched"
+
+        return msg
+
+    #Check the user has the required balance
+    user = User.query.filter(User.id==current_user.id).first()
+    user_balance = user.balance
+
+    if not user_balance >= (listing.user_return - listing.amount):
+        msg['result'] = 'failure'
+        msg['error'] = "Balance not sufficient!"
+
+        return msg
+
+    #Remove bet amount from user
+    current_user.balance -= (listing.user_return - listing.amount)
+
+    #Add new match to DB and update listing to be matched
+    new_match = Match(user_listing_id=listing.user_id, user_matching_id=current_user.id)
+    db.session.add(new_match)
+    listing.matched = True
+    db.session.commit()
+    
+    msg['result'] = 'success'
+
+    return msg
+
 
 @app.route('/user', methods=['GET', 'POST'])
 @login_required
 def user():
-    if current_user.username == 'admin':
+    
+    
+    #if current_user.username == 'admin':
+    #    #Do admin things
+    #    return render_template('user.html')
 
-        return render_template('user.html')
+    #Get all listings for user
+    #Perhaps sort by event time later
+    user_listings = Listing.query.filter(Listing.user_id==current_user.id).order_by(Listing.datetime.asc()).all()
 
-    return render_template('user.html', title="Results")
+    for listing in user_listings:
+        event = Event.query.filter(Event.id==listing.event_id).first()
+        listing.event = event.title
+        #listing.event_datetime = event.datetime
+
+        option = Option.query.filter(Option.id==listing.option_id).first()
+        listing.pick = option.pick
+        #listing.their_pick = option.their_pick
+
+        listing.daymonth = str(listing.datetime.day) + '/' + str(listing.datetime.month) + " " + str(listing.datetime.hour) + ":" + str(listing.datetime.minute).zfill(2)
+
+
+    return render_template('user.html', listings=user_listings)
 
 @app.route('/about', methods=['GET', 'POST'])
 def about():
     return render_template('about.html', title="About Us")
 
+
+@login_required
+@app.route('/bank', methods=['GET'])
+def bank():
+
+
+    result = []
+
+    user = User.query.filter(User.id==current_user.id).first()
+
+
+    return render_template('bank.html', title='Bank')
+
+
+
+@login_required
+@app.route('/deposit', methods=['GET', 'POST'])
+def deposit():
+
+    amount = request.args.get('amount', default=5, type = int)
+
+    api_key = 'Uznvgn9Tb1rOgO47kNy88CEhXSuBzTUH2Md2cbfyp4Q';
+    url = 'https://www.blockonomics.co/api/new_address';
+
+    headers = {'Authorization': "Bearer " + api_key}
+    r = requests.post(url, headers=headers)
+    if r.status_code == 200:
+        address = r.json()['address']
+        print ('Payment receiving address ' + address)
+
+    else:
+        print(r.status_code, r.text)
+
+    return render_template('bank.html', title='Bank')
+
+
+@app.route('/payment_callback', methods=['GET', 'POST'])
+def payment_callback():
+
+    status = request.args.get('status', default=5, type = int)
+    addr = request.args.get('addr', default=5, type = int)
+    value = request.args.get('value', default=5, type = int)
+    txid = request.args.get('txid', default=5, type = int)
+
+    price_data = requests.get('https://www.blockonomics.co/api/price?currency=USD')
+    USDBTC = price_data.json()['price']
+
+    price_USD = (value * 0.00000001) * USDBTC
+
+    print('received funds: USD' + str(price_USD) + ', BTC' + str(value * 0.00000001))
+
+    return 'success'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+##REDACTED --------------------------------------------------------------
 @app.route('/content', methods=['GET', 'POST'])
 def content():
     return render_template('content.html', title="Learning Materials")

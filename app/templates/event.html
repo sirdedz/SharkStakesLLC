@@ -38,12 +38,12 @@
         </select>
     </p>
 
-    <button id="createListing" onclick="createListing({{event.id}})">
+    <!--<button id="createListing" onclick="createListing({{event.id}})">
         Create A Listing
-    </button>
+    </button>-->
 
-    <div id="createListingPopup" class="hidden">
-        <div id="createListingClose" onclick="createListingClose()">
+    <div id="createListingPopup" class="hidden popup">
+        <div class="popupClose" onclick="createListingClose()">
             X
         </div>
         <table>
@@ -118,43 +118,56 @@
         </table>
     </div>
 
-    <!-- <div id="event_options">
-        {% for option in options %}
+    <div id="matchPopup" class="hidden popup">
+        <h6>
+            {{event.title}}
+        </h6>
+        <h12>
+            MATCH A LISTING
+        </h12>
+        <p></p>
+        <input type="checkbox"/><a href="#" style="text-decoration: underline; padding-left: 20px">Terms and Conditions</a>
+        <br>
+        <div>
+            <input type="submit" value="Cancel" onclick="cancelMatching()"/>
+            <input type="submit" value="Confirm" onclick="matchListing({{ current_user.id }})" id="matchConfirm"/>
+        </div>
+    </div>
 
-            <div>
-                {{ option.pick }} to win
-            </div>
-
-        {% endfor %}
-    </div> -->
-
-    <table id="eventTable" class="sortable">
+    <table id="eventTable" class="sortable listingTable">
         <thead>
-          <tr>
-            <th scope="col">User</th>
-            <th scope="col">Their Pick</th>
-            <th scope="col">Your Pick</th>
-            <th scope="col" id="yourOdds">Your Odds</th>
-            <th scope="col">You Bet</th>
-            <th scope="col">Return</th>
-            <th scope="col">DateTime</th>
-            <th scope="col">MATCH</th>
-            {% if current_user.username == 'admin' %}
-                <th scope="col">Delete</th>
-            {% endif %}
-          </tr>
+            <tr>
+                <th class="sorttable_nosort" colspan="100%">
+                    <button id="createListing" onclick="createListing({{event.id}})">
+                        Create A Listing
+                    </button>
+                </th>
+            </tr>
+            <tr>
+                <th scope="col">User</th>
+                <th scope="col">Their Pick</th>
+                <th scope="col">Your Pick</th>
+                <th scope="col" id="yourOdds">Your Odds</th>
+                <th scope="col">You Bet</th>
+                <th scope="col">Return</th>
+                <th scope="col">DateTime</th>
+                <th scope="col">MATCH</th>
+                {% if current_user.username == 'admin' %}
+                    <th scope="col">Delete</th>
+                {% endif %}
+            </tr>
         </thead>
 
         <tbody>
             {% for listing in listings %}
             <tr>
                 <td>{{ listing.username }}</td>
-                <td>{{listing.option}}</td>
+                <td>{{listing.pick}}</td>
                 <td class="yourPick">
                     {% set first = 'True' %}
                     {% for option in listing.other_options %}
 
-                        {{option.pick}}
+                        {{option}}
 
                         {% if not loop.last %}
                             or
@@ -166,8 +179,14 @@
                 <td>${{listing.match_amount}}</td>
                 <td>{{'%.02f' | format(listing.user_return | float)}}</td>
                 <td>{{listing.daymonth}}</td>
-                <td><a href="#">MATCH</a></td>
-                {% if current_user.username == 'admin' %}
+                {% if current_user.id != listing.user_id %}
+                    <td onclick="matchPopup({{ listing| safe }})">MATCH</td>
+                {% elif current_user.id == listing.user_id %}
+                    <td><a href="#">DEL</a></td>
+                {% else %}
+                    <td></td>
+                {% endif %}
+                {% if current_user.username == 'admin'%}
                     <td><a href={{ url_for('delete_quiz', title=event.title) }}>DEL</a></td>
                 {% endif %}
             </tr>

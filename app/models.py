@@ -23,7 +23,7 @@ class User(UserMixin, db.Model):
     postcode = db.Column(db.Integer)
     phone = db.Column(db.Integer)
     email = db.Column(db.String(128), unique=True, index=True)
-    balance = db.Column(db.Integer)
+    balance = db.Column(db.Float)
     password_hash = db.Column(db.String(128))
 
 #functionality for setting and checking password hashes
@@ -61,25 +61,27 @@ class Option(db.Model):
 class Listing(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     event_id = db.Column(db.Integer, db.ForeignKey('event.id'))
-    odds = db.Column(db.Integer)
-    listers_odds = db.Column(db.Integer)
-    amount = db.Column(db.Integer)
-    user_return = db.Column(db.Integer)
+    odds = db.Column(db.Float)
+    listers_odds = db.Column(db.Float)
+    amount = db.Column(db.Float)
+    user_return = db.Column(db.Float)
     option_id = db.Column(db.Integer, db.ForeignKey('option.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    time = db.Column(db.Integer)
+    matched = db.Column(db.Boolean)
     datetime = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self):
         return '<Listing {}>'.format(self.odds)
 
-#table for previous results
-class Result(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    score = db.Column(db.Integer)
-    questions_answered = db.Column(db.Integer)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    date = db.Column(db.DateTime, default=datetime.utcnow)
 
-    def __repr__(self):
-        return '<Result {}>'.format(self.id)
+#table for matched listings not yet realised
+class Match(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_listing_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user_matching_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+#table for matched listings which have been realised
+class History(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    match_id = db.Column(db.Integer, db.ForeignKey('match.id'))
+    winning_user = db.Column(db.Integer, db.ForeignKey('user.id'))
